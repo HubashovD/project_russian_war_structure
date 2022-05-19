@@ -5,26 +5,25 @@
 <head>
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://d3js.org/d3.v4.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
-</head>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
-<body>
-    <form>
-        <label><input type="radio" name="mode" value="cluster" checked> Dendrogram</label>
-        <label><input type="radio" name="mode" value="tree"> Tree</label>
-    </form>
+    <body>
+        <form>
+            <label><input type="radio" name="mode" value="cluster" checked> Dendrogram</label>
+            <label><input type="radio" name="mode" value="tree"> Tree</label>
+        </form>
 
-    <div class="main_grid">
-        <div class="box1">
-            <svg id="ierarchy"></svg>
+        <div class="main_grid">
+            <div class="box1">
+                <svg id="ierarchy"></svg>
+            </div>
+            <div class="box2">
+                <svg id="map"></svg>
+            </div>
         </div>
-        <div class="box2">
-            <svg id="map"></svg>
-        </div>
-    </div>
-    <script src="js/ierarchy.js"></script>
-    <script src="js/map.js"></script>
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
-</body>
+        <script src="js/ierarchy.js"></script>
+        <script src="js/map.js"></script>
+    </body>
 
 </html>
