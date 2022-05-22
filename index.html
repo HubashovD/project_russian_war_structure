@@ -13,17 +13,78 @@
             <label><input type="radio" name="mode" value="cluster" checked> Dendrogram</label>
             <label><input type="radio" name="mode" value="tree"> Tree</label>
         </form>
-
+        <select id="selectButton" class="custom-select"></select>
+        <div id="activitySphereOnOffenseMomentName"></div>
         <div class="main_grid">
             <div class="box1">
-                <svg id="ierarchy"></svg>
+                <div id="ierarchy"></div>
             </div>
             <div class="box2">
-                <svg id="map"></svg>
+                <div id='map'>
+                </div>
             </div>
-        </div>
-        <script src="js/ierarchy.js"></script>
-        <script src="js/map.js"></script>
+
+            <script src="js/ierarchy.js"></script>
+            <script src="js/map.js"></script>
+
+            <script>
+                d3.csv("map.csv", function(data) {
+                    //console.log(data)
+                    var link = []
+                    data.forEach(function(d) {
+                        link.push({
+                            unit: d.unit
+                        })
+                    });
+
+                    //console.log(link)
+                    link.forEach(function(d) {
+                        var photo = document.getElementsByClassName(d.unit); //перебираємо кожен підрозділ, який є класом
+                        //console.log(photo)
+                        for (var i = 0; i < photo.length; i++) {
+                            //console.log(photo[i])
+                            //console.log(photo[i].length)
+                            try {
+                                photo[i].onmouseover = function() {
+                                    elements = document.getElementsByClassName(d.unit)
+                                        //console.log(elements)
+                                    for (var i = 0; i < elements.length; i++) {
+                                        //console.log(elements[i])
+                                        elements[i].style.color = 'red';
+                                        elements[i].style.stroke = 'red';
+                                        elements[i].style.font = "14px sans-serif";
+                                        elements[i].style.r = "10";
+                                        elements[i].style.strokewidth = "7";
+                                    }
+                                    //elements.style.color = 'red';
+                                    //this.style.opacity = "1";
+                                    //this.style.stroke = 'red';
+                                    //this.style.strokewidth = "5";
+                                };
+                                photo[i].onmouseleave = function() {
+                                    elements = document.getElementsByClassName(d.unit)
+                                        //console.log(elements)
+                                    for (var i = 0; i < elements.length; i++) {
+                                        //console.log(elements[i])
+                                        elements[i].style.color = 'black';
+                                        elements[i].style.stroke = 'black';
+                                        elements[i].style.font = "10px sans-serif";
+                                        elements[i].style.r = "3";
+                                        elements[i].style.strokewidth = "1";
+                                    }
+                                }
+                                photo[i].onclick = function() { // додаємо функцію по кліку друкувати в консоль
+                                    console.log("from main")
+                                    console.log(this);
+                                }
+                            } catch {
+                                continue
+                            }
+                        };
+                    })
+                })
+            </script>
+
     </body>
 
 </html>
