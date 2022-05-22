@@ -3,7 +3,7 @@
     height = +svg.attr("height"),
     i = svg.append("g").attr("transform", "translate(50,50)"); */
 
-var margin = { top: 20, right: 0, bottom: 50, left: 200 },
+var margin = { top: 10, right: 10, bottom: 10, left: 10 },
     width = d3.select("#ierarchy").node().getBoundingClientRect().width - margin.left - margin.right,
     height = 920 - margin.top - margin.bottom;
 
@@ -17,7 +17,7 @@ i = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var tree = d3.tree()
-    .size([height - 200, width - 200])
+    .size([height - 10, width - 10])
     //.size([height, width]);
 
 var cluster = d3.cluster()
@@ -33,10 +33,10 @@ d3.csv("data.csv", function(error, data, ) {
     if (error) throw error;
 
     function update(f) {
-        //var filtered = data.filter(function(d) { return d.id === f })
 
+        var filtered = data.filter(function(d) { return d.district === f })
 
-        var root = stratify(data)
+        var root = stratify(filtered)
             .sort(function(a, b) {
                 return (a.height - b.height) || a.id.localeCompare(b.id);
             });
@@ -82,7 +82,7 @@ d3.csv("data.csv", function(error, data, ) {
             });
 
         var leafs = document.getElementsByClassName("node node--leaf"); // перебираємо кожен підрозділ, який є класом
-        //console.log(leafs)
+        console.log(leafs)
 
         for (var z = 0; z < leafs.length; z++) {
             //console.log(leafs[z].__data__.id)
@@ -144,13 +144,14 @@ d3.csv("data.csv", function(error, data, ) {
         }
     }
     // When the button is changed, run the updateChart function
-    d3.select("#selectButton").on("change", function(d) {
+    d3.select("#district_selector").on("change", function(d) {
         // recover the option that has been chosen
         var selectedOption = d3.select(this).property("value")
+        console.log(selectedOption)
             // run the updateChart function with this selected option
         update(selectedOption)
     })
-    update("Армфя РФ")
+    update("Западный военный округ")
 });
 
 function diagonal(d) {
