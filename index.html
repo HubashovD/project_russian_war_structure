@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <html>
 
 <head>
@@ -34,61 +35,119 @@
             <script src="js/map.js"></script>
 
             <script>
-                d3.csv("map.csv", function(data) {
-                    //console.log(data)
-                    var link = []
-                    data.forEach(function(d) {
-                        link.push({
-                            unit: d.unit
-                        })
-                    });
+                function options() {
 
-                    //console.log(link)
-                    link.forEach(function(d) {
-                        var photo = document.getElementsByClassName(d.unit); //перебираємо кожен підрозділ, який є класом
-                        //console.log(photo)
-                        for (var i = 0; i < photo.length; i++) {
-                            //console.log(photo[i])
-                            //console.log(photo[i].length)
-                            try {
-                                photo[i].onmouseover = function() {
-                                    elements = document.getElementsByClassName(d.unit)
-                                    console.log(elements)
-                                    for (var i = 0; i < elements.length; i++) {
-                                        //console.log(elements[i])
-                                        elements[i].style.color = 'red';
-                                        elements[i].style.stroke = 'red';
-                                        elements[i].style.font = "14px sans-serif";
-                                        elements[i].style.r = "10";
-                                        elements[i].style.strokewidth = "7";
+                    criminals = document.getElementsByClassName("Yes")
+                    console.log(criminals)
+
+                    for (var i = 0; i < criminals.length; i++) {
+                        if (criminals[i].localName == 'circle') {
+                            console.log(criminals[i].localName)
+                            console.log(criminals[i])
+                                //console.log("criminals: " + i)
+                            criminals[i].style.color = 'red';
+                            criminals[i].style.stroke = 'red';
+                        } else {
+                            console.log('not_circle')
+                        }
+
+                    }
+
+                    d3.csv("map.csv", function(data) {
+                        //console.log(data)
+                        var unit_list = []
+                        data.forEach(function(d) {
+                            unit_list.push({
+                                unit: d.unit_en
+                            })
+                        });
+
+                        //console.log(link)
+                        unit_list.forEach(function(d) {
+                            var photo = document.getElementsByClassName(d.unit); //перебираємо кожен підрозділ, який є класом
+                            //console.log(photo)
+                            for (var i = 0; i < photo.length; i++) { // перебираємо кожен елемент у списку класів
+                                //console.log(photo[i])
+                                //console.log(photo[i].length)
+                                try { // для кожного елементу із списку класів додаємо властивість, якщо елемента немає в списку - пропускаємо
+                                    photo[i].onmouseover = function() {
+                                        elements = document.getElementsByClassName(d.unit)
+                                        console.log(elements)
+                                            //texts = elements.selectAll('text')
+                                            //console.log(texts)
+                                        for (var i = 0; i < elements.length; i++) {
+                                            if (elements[i].localName == 'circle') {
+                                                //console.log("circle")
+                                                //elements[i].style.color = 'green';
+                                                elements[i].style.stroke = 'red';
+                                                elements[i].style.r = "10"
+                                            } else if (elements[i].localName == 'text') {
+                                                //console.log("text")
+                                                elements[i].style.color = 'red';
+                                                elements[i].style.stroke = 'red'
+                                                elements[i].style.font = "14px sans-serif";
+                                            } else if (elements[i].localName == 'path') {
+                                                //console.log("path")
+                                                elements[i].style.strokewidth = "5px";
+                                                elements[i].style.stroke = 'red';
+                                                elements[i].style.opacity = "1";
+                                            } else {}
+                                            //console.log(elements[i])
+                                            //console.log(elements[i])
+                                            /*elements[i].style.color = 'red';
+                                            elements[i].style.stroke = 'red';
+                                            elements[i].style.font = "14px sans-serif";
+                                            elements[i].style.r = "10";
+                                            elements[i].style.strokewidth = "7"; */
+                                        }
+                                        //elements.style.color = 'red';
+                                        //this.style.opacity = "1";
+                                        //this.style.stroke = 'red';
+                                        //this.style.strokewidth = "5";
+                                    };
+                                    photo[i].onmouseleave = function() {
+                                        elements = document.getElementsByClassName(d.unit)
+                                            //console.log(elements)
+                                        for (var i = 0; i < elements.length; i++) {
+                                            //console.log(elements[i])
+                                            if (elements[i].localName == 'circle') {
+                                                //console.log("circle")
+                                                elements[i].style.stroke = 'black';
+                                                elements[i].style.r = "3"
+                                                elements[i].style.stroke = "None"
+                                                    //elements[i].style.color = 'black';
+                                            } else if (elements[i].localName == 'text') {
+                                                //console.log("text")
+                                                elements[i].style.color = 'black';
+                                                elements[i].style.stroke = "None"
+                                                elements[i].style.font = "10px sans-serif";
+                                            } else if (elements[i].localName == 'path') {
+                                                //console.log("path")
+                                                elements[i].style.strokewidth = "1px";
+                                                elements[i].style.stroke = 'black';
+                                                elements[i].style.opacity = "0";
+                                            } else {}
+                                            /*elements[i].style.color = 'black';
+                                            elements[i].style.stroke = 'black';
+                                            elements[i].style.font = "10px sans-serif";
+                                            elements[i].style.r = "3";
+                                            elements[i].style.strokewidth = "1"; */
+                                        }
                                     }
-                                    //elements.style.color = 'red';
-                                    //this.style.opacity = "1";
-                                    //this.style.stroke = 'red';
-                                    //this.style.strokewidth = "5";
-                                };
-                                photo[i].onmouseleave = function() {
-                                    elements = document.getElementsByClassName(d.unit)
-                                        //console.log(elements)
-                                    for (var i = 0; i < elements.length; i++) {
-                                        //console.log(elements[i])
-                                        elements[i].style.color = 'black';
-                                        elements[i].style.stroke = 'black';
-                                        elements[i].style.font = "10px sans-serif";
-                                        elements[i].style.r = "3";
-                                        elements[i].style.strokewidth = "1";
+                                    photo[i].onclick = function() { // додаємо функцію по кліку друкувати в консоль
+                                        console.log("from main")
+                                        console.log(this);
                                     }
+                                } catch {
+                                    continue
                                 }
-                                photo[i].onclick = function() { // додаємо функцію по кліку друкувати в консоль
-                                    console.log("from main")
-                                    console.log(this);
-                                }
-                            } catch {
-                                continue
-                            }
-                        };
+                            };
+                        })
                     })
-                })
+                }
+            </script>
+            <script>
+                options()
             </script>
 
     </body>

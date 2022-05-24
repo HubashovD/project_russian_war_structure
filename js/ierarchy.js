@@ -3,36 +3,60 @@
     height = +svg.attr("height"),
     i = svg.append("g").attr("transform", "translate(50,50)"); */
 
-var margin = { top: 10, right: 10, bottom: 10, left: 10 },
+var margin = { top: 10, right: 100, bottom: 10, left: 100 },
     width = d3.select("#ierarchy").node().getBoundingClientRect().width - margin.left - margin.right,
     height = 920 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
 var svg = d3.select("#ierarchy")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
 
-i = svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-var tree = d3.tree()
-    .size([height - 10, width - 10])
-    //.size([height, width]);
-
-var cluster = d3.cluster()
-    /*.size([height, width - 160]); */
-    .size([height, width]);
-
-var stratify = d3.stratify()
-    .parentId(function(d) {
-        return d.id.substring(0, d.id.lastIndexOf("."));
-    });
 
 d3.csv("data.csv", function(error, data, ) {
     if (error) throw error;
 
     function update(f) {
+
+        try {
+            var rem = svg.selectAll("svg")
+                //console.log(rem)
+            rem.remove();
+        } catch {
+            console.log('error')
+        }
+
+        try {
+            var ges = svg.selectAll("g")
+                //console.log(ges)
+            ges.remove();
+        } catch {
+            console.log('error_2')
+        }
+
+
+        var tree = d3.tree()
+            .size([height - 10, width - 10])
+            //.size([height, width]);
+
+        var cluster = d3.cluster()
+            .size([height, width - 160]);
+        //.size([height, width]);
+        //.size([200, 200]);
+
+        var stratify = d3.stratify()
+            .parentId(function(d) {
+                return d.id.substring(0, d.id.lastIndexOf("."));
+            });
+
+        i = svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            .attr("width", '99vw')
+
+        i
+            .transition()
+            .duration(750);
+
 
         var filtered = data.filter(function(d) { return d.district === f })
 
@@ -42,6 +66,7 @@ d3.csv("data.csv", function(error, data, ) {
             });
 
         cluster(root);
+        //console.log(root)
 
 
 
@@ -60,6 +85,7 @@ d3.csv("data.csv", function(error, data, ) {
                 return "node" + (d.children ? " node--internal" : " node--leaf");
             })
             .attr("transform", function(d) {
+                //console.log(d.y)
                 return "translate(" + d.y + "," + d.x + ")";
             });
 
@@ -82,7 +108,7 @@ d3.csv("data.csv", function(error, data, ) {
             });
 
         var leafs = document.getElementsByClassName("node node--leaf"); // перебираємо кожен підрозділ, який є класом
-        console.log(leafs)
+        //console.log(leafs)
 
         for (var z = 0; z < leafs.length; z++) {
             //console.log(leafs[z].__data__.id)
@@ -96,12 +122,13 @@ d3.csv("data.csv", function(error, data, ) {
             //console.log(circles)
 
             circles
-                .attr("class", leafs[z].__data__.id.substring(leafs[z].__data__.id.lastIndexOf(".") + 1));
+            //.attr("class", leafs[z].__data__.id.substring(leafs[z].__data__.id.lastIndexOf(".") + 1));
+                .attr("class", leafs[z].__data__.data.unit_en + " " + leafs[z].__data__.data.crimes);
 
             texts = elem.selectAll("text")
 
             texts
-                .attr("class", leafs[z].__data__.id.substring(leafs[z].__data__.id.lastIndexOf(".") + 1));
+                .attr("class", leafs[z].__data__.data.unit_en + " " + leafs[z].__data__.data.crimes);
 
             /*texts.onmouseover = function() {
                 this.style.opacity = "1";
@@ -123,12 +150,13 @@ d3.csv("data.csv", function(error, data, ) {
             //    console.log(this);
             //}
         }
+        options()
 
         d3.selectAll("input")
             .on("change", changed);
 
         var timeout = setTimeout(function() {
-            d3.select("input[value=\"tree\"]")
+            d3.select("input[value=\"cluster\"]")
                 .property("checked", true)
                 .dispatch("change");
         }, 1000);
@@ -147,7 +175,7 @@ d3.csv("data.csv", function(error, data, ) {
     d3.select("#district_selector").on("change", function(d) {
         // recover the option that has been chosen
         var selectedOption = d3.select(this).property("value")
-        console.log(selectedOption)
+            //console.log(selectedOption)
             // run the updateChart function with this selected option
         update(selectedOption)
     })
@@ -156,7 +184,7 @@ d3.csv("data.csv", function(error, data, ) {
 
 function diagonal(d) {
     return "M" + d.y + "," + d.x +
-        "C" + (d.parent.y + 100) + "," + d.x +
-        " " + (d.parent.y + 100) + "," + d.parent.x +
+        "C" + (d.parent.y + 50) + "," + d.x +
+        " " + (d.parent.y + 50) + "," + d.parent.x +
         " " + d.parent.y + "," + d.parent.x;
 }

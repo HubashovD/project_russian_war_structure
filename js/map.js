@@ -4,34 +4,39 @@
     width = +svg.attr("width"),
     height = +svg.attr("height"); */
 
-
-var margin = { top: 20, right: 0, bottom: 50, left: 200 },
+var margin = { top: 10, right: 10, bottom: 10, left: 10 },
     width = d3.select("#map").node().getBoundingClientRect().width - margin.left - margin.right,
-    height = 920 - margin.top - margin.bottom;
+    height = d3.select("#map").node().getBoundingClientRect().height - margin.top - margin.bottom;
+//height = 920 - margin.top - margin.bottom;
+//console.log(d3.select("#map").node().getBoundingClientRect().width)
 
 // append the svg object to the body of the page
-var svg = d3.select("#map")
+var map_svg = d3.select("#map")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
 
-svg.append('rect')
+map_svg.append('rect')
     .attr("fill", "#d0cfd4")
     .attr('width', '100%')
     .attr('height', '100%')
 
-svg.append("g")
+map_svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 // Map and projection
 var projection = d3.geoMercator()
-    .scale(200) //400
+    .scale(400) //400
     .rotate([-90, 0])
     .center([0, 70])
     /*.translate([width / 2, height / 2 * 1.3]) */
 
-// Create data: coordinates of start and end
+
 d3.csv("map.csv", function(data) {
+    options()
+
+
+    // Create data: coordinates of start and end
 
     /*
         data.forEach(function(d) {
@@ -45,20 +50,25 @@ d3.csv("map.csv", function(data) {
         d.ua_s = +d.ua_s
         d.ru_f = +d.ru_f
         d.ru_s = +d.ru_s
+        points.push({
+            region: d.region,
+            unit: d.unit,
+            unit_en: d.unit_en,
+            crimes: d.crimes,
+            type: "Point",
+            coordinates: [
+                [d.ua_f, d.ua_s],
+                [d.ru_f, d.ru_s]
+            ]
+        })
         if (d.ua_f == 0) {
-            points.push({
-                region: d.region,
-                unit: d.unit,
-                type: "Point",
-                coordinates: [
-                    [d.ua_f, d.ua_s],
-                    [d.ru_f, d.ru_s]
-                ]
-            })
+
         } else {
             link.push({
                 region: d.region,
                 unit: d.unit,
+                unit_en: d.unit_en,
+                crimes: d.crimes,
                 type: "LineString",
                 coordinates: [
                     [d.ua_f, d.ua_s],
@@ -68,6 +78,7 @@ d3.csv("map.csv", function(data) {
         }
 
     });
+    //console.log(points)
 
     //console.log(link)
     // A path generator
@@ -85,7 +96,7 @@ d3.csv("map.csv", function(data) {
 
 
         // Draw the map
-        svg.append("g")
+        map_svg.append("g")
             .selectAll("path")
             .data(data.features)
             .enter().append("path")
@@ -136,26 +147,27 @@ d3.csv("map.csv", function(data) {
 
 
         // Add the lines
-        svg.selectAll("myPath")
+        map_svg.selectAll("myPath")
             .data(link)
             .enter()
             .append("path")
             //.attr("class", "path_line")
-            .attr("class", function(d) { return d.unit })
+            .attr("class", function(d) { return d.unit_en + " " + d.crimes })
+            //.addclass(function(d) { return  d.crimes})
             .attr("d", function(d) { return path(d) })
             .style("fill", "none")
             .style("stroke", "black")
             .style("stroke-width", 1)
-            .style("opacity", 0.5)
+            .style("opacity", 0)
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
 
-        svg.selectAll("myCircles")
+        map_svg.selectAll("myCircles")
             .data(points)
             .enter()
             .append("circle")
-            .attr("class", function(d) { return d.unit })
+            .attr("class", function(d) { return d.unit_en + " " + d.crimes + " map-circle" })
             .attr("cx", function(d) { return projection(d.coordinates[1])[0] })
             .attr("cy", function(d) { return projection(d.coordinates[1])[1] })
             .attr("r", 3)

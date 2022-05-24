@@ -7,4 +7,5 @@ import pandas as pd
 data = pd.read_csv('https://docs.google.com/spreadsheets/d/e/2PACX-1vR6_3MIt4pjFCQs9pdpp_0hkm0BpeyDwGDnxX5jlhEwirA4bleTauoMk-zpccqbqzQFdjZMco4airRU/pub?gid=872449975&single=true&output=csv')
 
 data = data.drop_duplicates('unit')
+data = data[data['unit'] != "ffff"]
 data.to_csv('map.csv', index = False)

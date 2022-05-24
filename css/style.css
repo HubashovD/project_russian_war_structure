@@ -1,4 +1,45 @@
     /* grand styles*/
+    /*@media (min-width: 1680px) {
+    }
+    
+    @media (min-width: 1280px) and (max-width: 1679px) {
+        #parcels_owner_using,
+        #parcels_using {
+            width: 80%;
+        }
+        #map {
+            width: 60vw;
+        }
+    }
+    */
+    
+    @media (min-width: 992px) and (max-width: 1279px) {
+        .main_grid {
+            display: block !important;
+        }
+        #map {
+            width: 99vw;
+        }
+    }
+    
+    @media (max-width: 991px) and (min-width: 480px) {
+        .main_grid {
+            display: block !important;
+        }
+        #map {
+            width: 99vw;
+        }
+    }
+    
+    @media (max-width: 479px) {
+        .main_grid {
+            display: block !important;
+            width: 99vw;
+        }
+        #map {
+            width: 99vw !important;
+        }
+    }
     
     .main_grid {
         display: grid;
