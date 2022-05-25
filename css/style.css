@@ -90,6 +90,10 @@
     .node text {
         font: 10px sans-serif;
     }
+    
+    .Yes text circle {
+        fill: red !important
+    }
     /*.node text:hover {
         font: 14px sans-serif;
         color: red;

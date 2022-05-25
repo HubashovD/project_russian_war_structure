@@ -55,6 +55,7 @@ d3.csv("map.csv", function(data) {
             unit: d.unit,
             unit_en: d.unit_en,
             crimes: d.crimes,
+            city: d.city,
             type: "Point",
             coordinates: [
                 [d.ua_f, d.ua_s],
@@ -69,6 +70,7 @@ d3.csv("map.csv", function(data) {
                 unit: d.unit,
                 unit_en: d.unit_en,
                 crimes: d.crimes,
+                location: d.location,
                 type: "LineString",
                 coordinates: [
                     [d.ua_f, d.ua_s],
@@ -153,7 +155,7 @@ d3.csv("map.csv", function(data) {
             .append("path")
             //.attr("class", "path_line")
             .attr("class", function(d) { return d.unit_en + " " + d.crimes })
-            //.addclass(function(d) { return  d.crimes})
+            //.addclass()
             .attr("d", function(d) { return path(d) })
             .style("fill", "none")
             .style("stroke", "black")
@@ -175,10 +177,71 @@ d3.csv("map.csv", function(data) {
             .style("fill", "69b3a2")
             .attr("stroke", "#69b3a2")
             .attr("stroke-width", 3)
-            .attr("fill-opacity", .4)
+            .attr("fill-opacity", 0.4)
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
             .on("mouseleave", mouseleave)
+
+        //var text_explainer = d3.select("#map")
+        //console.log(text_explainer)
+
+
+        // додаємо підписи доля населених пунктів в яких дислокуються військові підрозділи російської армії
+        text_explainer = map_svg.selectAll(".labels")
+
+        text_explainer
+            .data(points)
+            .enter().append("text")
+            //.attr("class", "text_explainer")
+            .attr("class", function(d) { return d.unit_en + " text-explainer" })
+            .text(function(d) { return d.city + ", " + d.region })
+            .attr("x", function(d) {
+                return projection(d.coordinates[1])[0]
+            })
+            .attr("y", function(d) { return projection(d.coordinates[1])[1] })
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "1px")
+            .style("border-radius", "5px")
+            .style("opacity", 0)
+
+
+
+        // додамо точки у яких вооють російські підрозділи в Україні
+        map_svg.selectAll(".war_points")
+            .data(link)
+            .enter()
+            .append("circle")
+            .attr("class", function(d) { return d.unit_en + " war-point" })
+            .attr("cx", function(d) { return projection(d.coordinates[0])[0] })
+            .attr("cy", function(d) { return projection(d.coordinates[0])[1] })
+            .attr("r", 3)
+            .style("fill", "69b3a2")
+            .attr("stroke", "#69b3a2")
+            .attr("stroke-width", 3)
+            .attr("opacity", 0)
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseleave", mouseleave)
+
+
+
+        // Додаємо підписи територій в яких вооють російські підрозділи в Україні
+        map_svg.selectAll(".war_explainer")
+            .data(link)
+            .enter().append("text")
+            //.attr("class", "text_explainer")
+            .attr("class", function(d) { return d.unit_en + " war-explainer" })
+            .text(function(d) { return d.location })
+            .attr("x", function(d) {
+                return projection(d.coordinates[0])[0]
+            })
+            .attr("y", function(d) { return projection(d.coordinates[0])[1] })
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "1px")
+            .style("border-radius", "5px")
+            .style("opacity", 0)
 
         /*
                 // add the points
