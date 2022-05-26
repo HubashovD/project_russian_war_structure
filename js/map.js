@@ -28,7 +28,7 @@ map_svg.append("g")
 
 // Map and projection
 var projection = d3.geoMercator()
-    .scale(400) //400
+    .scale(85) //400
     .rotate([-90, 0])
     .center([0, 70]) //[0, 70]
     /*.translate([width / 2, height / 2 * 1.3]) */
@@ -135,7 +135,7 @@ d3.csv("map.csv", function(data) {
 
         var mousemove = function(d) {
             tooltip
-                .html("this is tooltip " + d.coordinates)
+                .html("this is tooltip " + d.coordinates + "\n" + d.unit + " " + d.city + ", " + d.region)
                 .style("left", (d3.mouse(this)[0]) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
                 .style("top", (d3.mouse(this)[1]) + "px")
         }
