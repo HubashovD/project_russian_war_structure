@@ -4,17 +4,19 @@
     width = +svg.attr("width"),
     height = +svg.attr("height"); */
 
-var margin = { top: 10, right: 10, bottom: 10, left: 10 },
-    width = d3.select("#map").node().getBoundingClientRect().width - margin.left - margin.right,
-    height = d3.select("#map").node().getBoundingClientRect().height - margin.top - margin.bottom;
+var map_margin = { top: 10, right: 10, bottom: 10, left: 10 },
+    map_width = d3.select("#map").node().getBoundingClientRect().width, //- margin.left - margin.right,
+    map_height = d3.select("#map").node().getBoundingClientRect().height - margin.top - margin.bottom;
 //height = 920 - margin.top - margin.bottom;
-//console.log(d3.select("#map").node().getBoundingClientRect().width)
+console.log(d3.select("#map").node().getBoundingClientRect().width)
+console.log(map_width)
+    //console.log(map_height)
 
 // append the svg object to the body of the page
 var map_svg = d3.select("#map")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", map_width) // + map_margin.left + map_margin.right
+    .attr("height", map_height + map_margin.top + map_margin.bottom) // + map_margin.top + map_margin.bottom
 
 map_svg.append('rect')
     .attr("fill", "#d0cfd4")
@@ -22,13 +24,13 @@ map_svg.append('rect')
     .attr('height', '100%')
 
 map_svg.append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + map_margin.left + "," + map_margin.top + ")")
 
 // Map and projection
 var projection = d3.geoMercator()
     .scale(400) //400
     .rotate([-90, 0])
-    .center([0, 70])
+    .center([0, 70]) //[0, 70]
     /*.translate([width / 2, height / 2 * 1.3]) */
 
 
@@ -174,9 +176,9 @@ d3.csv("map.csv", function(data) {
             .attr("cy", function(d) { return projection(d.coordinates[1])[1] })
             .attr("r", 3)
             //.attr("class", "circle")
-            .style("fill", "69b3a2")
-            .attr("stroke", "#69b3a2")
-            .attr("stroke-width", 3)
+            .style("fill", "blsck")
+            .attr("stroke", "grey")
+            .attr("stroke-width", 1)
             .attr("fill-opacity", 0.4)
             .on("mouseover", mouseover)
             .on("mousemove", mousemove)
@@ -216,8 +218,8 @@ d3.csv("map.csv", function(data) {
             .attr("cx", function(d) { return projection(d.coordinates[0])[0] })
             .attr("cy", function(d) { return projection(d.coordinates[0])[1] })
             .attr("r", 3)
-            .style("fill", "69b3a2")
-            .attr("stroke", "#69b3a2")
+            .style("fill", "grey")
+            .attr("stroke", "black")
             .attr("stroke-width", 3)
             .attr("opacity", 0)
             .on("mouseover", mouseover)

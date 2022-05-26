@@ -5,7 +5,8 @@
 
 var margin = { top: 10, right: 100, bottom: 10, left: 100 },
     width = d3.select("#ierarchy").node().getBoundingClientRect().width - margin.left - margin.right,
-    height = 920 - margin.top - margin.bottom;
+    height = d3.select("#ierarchy").node().getBoundingClientRect().height - margin.top - margin.bottom;
+//height = 920 - margin.top - margin.bottom;
 
 var svg = d3.select("#ierarchy")
     .append("svg")
@@ -52,6 +53,7 @@ d3.csv("data.csv", function(error, data, ) {
         i = svg.append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .attr("width", '99vw')
+            .attr("height", '100%')
 
         i
             .transition()
@@ -152,8 +154,8 @@ d3.csv("data.csv", function(error, data, ) {
         }
         options()
 
-        d3.selectAll("input")
-            .on("change", changed);
+        //d3.selectAll("input")
+        //    .on("change", changed);
 
         var timeout = setTimeout(function() {
             d3.select("input[value=\"cluster\"]")
@@ -161,7 +163,7 @@ d3.csv("data.csv", function(error, data, ) {
                 .dispatch("change");
         }, 1000);
 
-        function changed() {
+        /*function changed() {
             timeout = clearTimeout(timeout);
             (this.value === "tree" ? tree : cluster)(root);
             var t = d3.transition().duration(750);
@@ -169,7 +171,7 @@ d3.csv("data.csv", function(error, data, ) {
                 return "translate(" + d.y + "," + d.x + ")";
             });
             link.transition(t).attr("d", diagonal);
-        }
+        } */
     }
     // When the button is changed, run the updateChart function
     d3.select("#district_selector").on("change", function(d) {
