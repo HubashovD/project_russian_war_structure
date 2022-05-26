@@ -28,7 +28,7 @@ map_svg.append("g")
 
 // Map and projection
 var projection = d3.geoMercator()
-    .scale(85) //400
+    .scale(400) //400
     .rotate([-90, 0])
     .center([0, 70]) //[0, 70]
     /*.translate([width / 2, height / 2 * 1.3]) */
