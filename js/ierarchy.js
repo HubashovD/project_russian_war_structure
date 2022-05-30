@@ -68,7 +68,7 @@ d3.csv("data.csv", function(error, data, ) {
             });
 
         cluster(root);
-        //console.log(root)
+        console.log(root)
 
 
 
@@ -84,6 +84,7 @@ d3.csv("data.csv", function(error, data, ) {
             .data(root.descendants())
             .enter().append("g")
             .attr("class", function(d) {
+                //console.log(d.children)
                 return "node" + (d.children ? " node--internal" : " node--leaf");
             })
             .attr("transform", function(d) {

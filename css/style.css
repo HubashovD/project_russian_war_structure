@@ -1,5 +1,7 @@
-    /* grand styles*/
-    /*@media (min-width: 1680px) {
+/* grand styles*/
+
+
+/*@media (min-width: 1680px) {
     }
     
     @media (min-width: 1280px) and (max-width: 1679px) {
@@ -12,139 +14,224 @@
         }
     }
     */
-    
-    @media (min-width: 992px) and (max-width: 1279px) {
-        .main_grid {
-            display: block !important;
-        }
-        #map {
-            width: 99vw;
-        }
-    }
-    
-    @media (max-width: 991px) and (min-width: 480px) {
-        .main_grid {
-            display: block !important;
-        }
-        #map {
-            width: 99vw;
-        }
-    }
-    
-    @media (max-width: 479px) {
-        .main_grid {
-            display: block !important;
-            width: 99vw;
-        }
-        #map {
-            width: 99vw !important;
-        }
-    }
-    
+
+@font-face {
+    font-family: "CHARTERC";
+    src: url("../fonts/CHARTERC.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "CHARTERC-bold";
+    src: url("../fonts/CHARTERC-BOLD.otf") format("opentype")
+}
+
+@font-face {
+    font-family: "proxima-medium";
+    src: url("../fonts/PROXIMA-NOVA-A-MEDIUM.otf") format("opentype")
+}
+
+@media (min-width: 992px) and (max-width: 1279px) {
     .main_grid {
-        display: grid;
-        grid: auto;
-        grid-template-columns: 50vw 50vw;
-        grid-template-rows: repeat(5, 200px);
-        margin-top: 3vw;
+        display: block !important;
     }
-    
-    .box1 {
-        grid-column-start: 1;
-        grid-column-end: 1;
-        grid-row-start: 1;
-        grid-row-end: 6;
+    #map {
+        width: 99vw;
     }
-    
-    .box2 {
-        grid-column-start: 2;
-        grid-row-start: 1;
-        grid-row-end: 5;
-        align-content: center;
+}
+
+@media (max-width: 991px) and (min-width: 480px) {
+    .main_grid {
+        display: block !important;
     }
-    
-    .text-explainer {
-        pointer-events: none;
+    #map {
+        width: 99vw;
     }
-    
-    .box3 {
-        grid-column-start: 2;
-        grid-row-start: 5;
-        grid-row-end: 5;
+}
+
+@media (max-width: 479px) {
+    .main_grid {
+        display: block !important;
+        width: 99vw;
     }
-    
-    #ierarchy {
-        height: 100%;
+    #map {
+        width: 99vw !important;
     }
-    /*#ierarchy {
+}
+
+#main-header {
+    font: 50px "CHARTERC-bold";
+    text-align: center;
+}
+
+#lead {
+    font: 16px "CHARTER";
+}
+
+.usual_text_block {
+    height: 100px;
+}
+
+.main_grid {
+    display: grid;
+    grid: auto;
+    grid-template-columns: 50vw 50vw;
+    grid-template-rows: repeat(5, 200px);
+    margin-top: 3vw;
+}
+
+.box1 {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 6;
+}
+
+.box2 {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 5;
+    align-content: center;
+    width: 49vw;
+}
+
+#sticky {
+    position: relative;
+    height: 80vh;
+    width: 49vw;
+}
+
+.text-explainer {
+    pointer-events: none;
+}
+
+.war-explainer {
+    fill: #000;
+    color: #FFFFFF;
+    display: inline;
+    white-space: pre-wrap;
+    padding: 3px 7px;
+    padding-left: 0px;
+    box-shadow: -7px 0 0 #000;
+}
+
+.box3 {
+    grid-column-start: 2;
+    grid-row-start: 5;
+    grid-row-end: 5;
+    height: 200px;
+    position: relative;
+    font: 16px "proxima-medium";
+    align-self: center;
+}
+
+.box3 text {
+    font: 16px "proxima-medium";
+    align-self: center;
+}
+
+#ierarchy {
+    height: 100%;
+}
+
+.army-main {
+    display: block;
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.division-main {
+    margin-left: 0px;
+}
+
+.unit-main {
+    margin-left: 50px;
+    font: 14px "proxima-medium";
+    font-family: "proxima-medium";
+}
+
+
+/*#ierarchy {
     width: 50vw;
     height: 95vh;
 } */
-    
-    #map {
-        /*width: 50vw; */
-        height: 100%;
-        position: relative;
-        display: block !important;
-        align-self: center;
-    }
-    
-    #map .tooltip {
-        position: absolute;
-        z-index: 999;
-        pointer-events: none;
-    }
-    
-    .path_line:hover {
-        stroke: red !important;
-        stroke-width: 10 !important;
-        opacity: 1 !important;
-    }
-    /* styles of ierarchy are below */
-    
-    .node circle {
-        fill: #999;
-    }
-    
-    .node text {
-        font: 10px sans-serif;
-    }
-    
-    .Yes text circle {
-        fill: red !important
-    }
-    /*.node text:hover {
+
+#map {
+    /*width: 50vw; */
+    height: 100%;
+    position: relative;
+    display: block !important;
+    align-self: top;
+}
+
+#map .tooltip {
+    position: absolute;
+    z-index: 999;
+    pointer-events: none;
+}
+
+.path_line:hover {
+    stroke: red !important;
+    stroke-width: 10 !important;
+    opacity: 1 !important;
+}
+
+
+/* styles of ierarchy are below */
+
+.node circle {
+    fill: #999;
+}
+
+.node text {
+    font: 10px "proxima-medium";
+    font-family: "proxima-medium";
+}
+
+.Yes text circle {
+    fill: red !important
+}
+
+
+/*.node text:hover {
         font: 14px sans-serif;
         color: red;
     } */
-    
-    .node--internal circle {
-        fill: #555;
-    }
-    
-    .node--internal text {
-        text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
-    }
-    
-    .node--internal text:hover {
-        font: 14px sans-serif;
-        color: red;
-    }
-    
-    .link {
-        fill: none;
-        stroke: #555;
-        stroke-opacity: 0.4;
-        stroke-width: 1.5px;
-    }
-    
-    form {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        position: absolute;
-        left: 10px;
-        top: 10px;
-    }
-    
-    label {
-        display: block;
-    }
+
+.node--internal circle {
+    fill: #555;
+}
+
+.node--internal text {
+    text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+}
+
+.node--internal text:hover {
+    font: 14px "proxima-medium";
+    font-family: "proxima-medium";
+    color: red;
+}
+
+.link {
+    fill: none;
+    stroke: #555;
+    stroke-opacity: 0.4;
+    stroke-width: 1.5px;
+}
+
+form {
+    font-family: "proxima-medium";
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+
+label {
+    display: block;
+}
+
+.total-description {
+    font: 16px "proxima-medium";
+    align-self: center;
+}

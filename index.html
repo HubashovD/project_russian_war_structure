@@ -9,7 +9,19 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.3/dist/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.3/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.3/dist/js/uikit-icons.min.js"></script>
+
     <body>
+        <div id='main-header'>Наскільки велика російська армія?</div>
+        <div id='lead'></div>
+        <p>Скільки бойових підрозділів Російська Федерація вже задіяла у війні з Україною? Чи є десь у "степах забайкалля" ще одна російська армія із потужною технікою, яку показують на парадах до "Дна перемоги"?</p>
+        <!--Путін Хуйло-->
+        <div class='usual_text_block'></div>
         <select id="district_selector">
             <option value="Западный военный округ">Западный военный округ</option>
             <option value="Північний флот">Північний флот</option>
@@ -17,11 +29,11 @@
             <option value="Центральный военный округ">Центральный военный округ</option>
             <option value="Южный военный округ">Южный военный округ</option>
         </select>
+        <button id='total-selection'>
+Умікни все!
+        </button>
 
-        <!--<form>
-            <label><input type="radio" name="mode" value="cluster" checked> Dendrogram</label>
-            <label><input type="radio" name="mode" value="tree"> Tree</label>
-        </form> -->
+
 
 
         <div class="main_grid">
@@ -29,13 +41,18 @@
                 <div id="ierarchy"></div>
             </div>
             <div class="box2">
-                <div id='map'></div>
+                <div uk-sticky="ierarchy" id="sticky">
+                    <div id='map'></div>
+                    <div id="box3"> Наведіть на точку на карті для отримання детальної інформації</div>
+                </div>
             </div>
-            <div id="box3"></div>
-        </div>
-        <script src="js/ierarchy.js"></script>
-        <script src="js/map.js"></script>
 
+        </div>
+        <div id="stoper" style="height:2000px; color:blue;"> а тут ще текст є</div>
+        <!--<script src="js/ierarchy.js"></script> -->
+        <script src="js/ierarchy_rev2.js"></script>
+        <script src="js/map.js"></script>
+        <!-- <script scr="js/map_ rev2.js"></script> -->
         <script>
             function options() {
 
@@ -49,9 +66,9 @@
                         //console.log("criminals: " + i)
                         criminals[i].style.color = 'red';
                         criminals[i].style.stroke = 'red';
-                    } else if (criminals[i].localName == 'text') {
+                    } else if (criminals[i].localName == 'li') {
                         //criminals[i].style.color = 'red';
-                        criminals[i].style.fill = "red";
+                        criminals[i].style.color = "red";
                     } else {
                         //console.log('not_circle')
                     }
@@ -76,6 +93,42 @@
                             //console.log(photo[i].length)
                             try { // для кожного елементу із списку класів додаємо властивість, якщо елемента немає в списку - пропускаємо
                                 photo[i].onmouseover = function() {
+                                    description = document.getElementById("box3")
+
+                                    while (description.firstChild) {
+                                        description.removeChild(description.firstChild);
+                                    }
+
+
+
+                                    //console.log(description)
+                                    //console.log(this.classList[0])
+                                    try {
+                                        f = this.classList[0]
+                                            //console.log(f)
+                                        var filtered_unit = data.filter(function(d) {
+                                                return d.unit_en === f
+                                            })
+                                            //console.log(filtered_unit[0])
+
+                                        text =
+                                            "<b>Назва підрозділу:</b> " +
+                                            filtered_unit[0].unit + "<br>" +
+                                            "<b>Підрозділ командування:</b> " +
+                                            filtered_unit[0].division + "<br>" +
+                                            "<b>Армія:</b> " + filtered_unit[0].army + ", " + filtered_unit[0].district + "<br>" +
+                                            "<b>Місце дислокації:</b> " + filtered_unit[0].city + ", " + filtered_unit[0].region + "<br>" +
+                                            "<b>Військова частина</b> " + filtered_unit[0].mil_part
+
+
+                                    } catch {}
+                                    //console.log(text)
+
+                                    var child = document.createElement('div');
+                                    child.innerHTML = text
+                                    child.classList.add("total-description")
+                                        //console.log(child)
+                                    description.appendChild(child);
                                     elements = document.getElementsByClassName(d.unit)
                                         //console.log(elements)
                                         //texts = elements.selectAll('text')
@@ -92,7 +145,11 @@
                                             //console.log("text")
                                             elements[i].style.color = 'red';
                                             elements[i].style.stroke = 'red'
-                                            elements[i].style.font = "14px sans-serif";
+                                            elements[i].style.font = "14px proxima-medium";
+                                        } else if (elements[i].localName == 'li') {
+                                            //console.log(elements[i])
+                                            elements[i].style.font = "18px proxima-medium";
+
                                         } else if (elements[i].localName == 'path') { // Лінії на карті приховані, і підсвічуються лише при наведенні
                                             //console.log("path")
                                             elements[i].style.strokewidth = "5px";
@@ -101,13 +158,14 @@
                                         } else {}
                                         //підсвічуємо назв населених пунктів та точки в Україні
                                         //console.log(elements[i])
-                                        var myClass = this.classList;
-                                        //console.log(myClass[0]);
-                                        //text_label = map_svg.selectAll(myClass[0] + " text_explainer")
-                                        text_label = document.getElementsByClassName(myClass[0] + " text-explainer")
-                                            //console.log(text_label[0])
-                                        text_label[0].style.opacity = "1";
-
+                                        try {
+                                            var myClass = this.classList;
+                                            //console.log(myClass[0]);
+                                            //text_label = map_svg.selectAll(myClass[0] + " text_explainer")
+                                            text_label = document.getElementsByClassName(myClass[0] + " text-explainer")
+                                                //console.log(text_label[0])
+                                            text_label[0].style.opacity = "1";
+                                        } catch {}
                                         try {
                                             war_point = document.getElementsByClassName(myClass[0] + " war-point")
                                             war_point[0].style.opacity = "1";
@@ -146,6 +204,11 @@
                                     }
                                 };
                                 photo[i].onmouseleave = function() {
+                                    description = document.getElementById("box3")
+
+                                    while (description.firstChild) {
+                                        description.removeChild(description.firstChild);
+                                    }
                                     elements = document.getElementsByClassName(d.unit)
                                         //console.log(elements)
                                     for (var i = 0; i < elements.length; i++) {
@@ -160,7 +223,10 @@
                                             //console.log("text")
                                             elements[i].style.color = 'black';
                                             elements[i].style.stroke = "None"
-                                            elements[i].style.font = "10px sans-serif";
+                                            elements[i].style.font = "10px proxima-medium";
+                                        } else if (elements[i].localName == 'li') {
+                                            //console.log(elements[i])
+                                            elements[i].style.font = "14px proxima-medium";
                                         } else if (elements[i].localName == 'path') {
                                             //console.log("path")
                                             elements[i].style.strokewidth = "1px";
@@ -169,12 +235,15 @@
                                         } else {}
 
                                         // прибираємо підсвітку назв населених пунктів та точки в Україні
-                                        var myClass = this.classList;
-                                        //console.log(myClass[0]);
-                                        //text_label = map_svg.selectAll(myClass[0] + " text_explainer")
-                                        text_label = document.getElementsByClassName(myClass[0] + " text-explainer")
-                                            //console.log(text_label[0])
-                                        text_label[0].style.opacity = "0"
+                                        try {
+                                            var myClass = this.classList;
+                                            //console.log(myClass[0]);
+                                            //text_label = map_svg.selectAll(myClass[0] + " text_explainer")
+                                            text_label = document.getElementsByClassName(myClass[0] + " text-explainer")
+                                                //console.log(text_label[0])
+                                            text_label[0].style.opacity = "0"
+                                        } catch {}
+
                                         try {
                                             war_point = document.getElementsByClassName(myClass[0] + " war-point")
                                             war_point[0].style.opacity = "0";
@@ -185,48 +254,7 @@
                                         } catch {}
                                     }
                                 }
-                                photo[i].onclick = function() { // додаємо функцію по кліку друкувати в консоль
-                                    console.log("from main")
-                                    console.log(this);
-                                    console.log(this.classList)
-                                    console.log(data)
-                                    description = document.getElementById("box3")
-
-                                    while (description.firstChild) {
-                                        description.removeChild(description.firstChild);
-                                    }
-
-                                    console.log(description)
-                                    console.log(this.classList[0])
-                                    f = this.classList[0]
-                                    var filtered_unit = data.filter(function(d) {
-                                        return d.unit_en === f
-                                    })
-                                    console.log(filtered_unit[0])
-
-                                    text =
-                                        "<b>Назва підрозділу:</b> " +
-                                        filtered_unit[0].unit + "<br>" +
-                                        "<b>Підрозділ командування:</b> " +
-                                        filtered_unit[0].division + "<br>" +
-                                        "<b>Місце дислокації:</b> " + filtered_unit[0].city
-
-                                    console.log(text)
-
-                                    var child = document.createElement('div');
-                                    child.innerHTML = text
-
-                                    console.log(child)
-                                    description.appendChild(child);
-
-
-
-
-
-
-
-
-                                }
+                                photo[i].onclick = function() {}
                             } catch {
                                 continue
                             }
@@ -234,11 +262,48 @@
                     })
                 })
             }
-        </script>
+        </script>>
         <script>
             options()
         </script>
-
+        <script>
+            function selectTotal() {
+                show = false
+                    //console.log("start show " + show)
+                butTotal = document.getElementById("total-selection")
+                    //console.log(butTotal)
+                butTotal.onclick = function() {
+                    //console.log("start show " + show)
+                    if (show === false) {
+                        criminals = document.getElementsByClassName("Yes")
+                            //console.log(criminals)
+                        for (var i = 0; i < criminals.length; i++) {
+                            if (criminals[i].localName == 'path') {
+                                criminals[i].style.stroke = 'red'
+                                criminals[i].style.opacity = '1'
+                            } else {}
+                        }
+                        show = true
+                        butTotal
+                        //console.log("show path")
+                    } else {
+                        criminals = document.getElementsByClassName("Yes")
+                            //console.log(criminals)
+                        for (var i = 0; i < criminals.length; i++) {
+                            if (criminals[i].localName == 'path') {
+                                criminals[i].style.stroke = 'red'
+                                criminals[i].style.opacity = '0'
+                            } else {}
+                        }
+                        show = false
+                            //console.log("hide path")
+                    }
+                    //console.log("end show " + show)
+                    return show
+                }
+            }
+            selectTotal()
+        </script>
     </body>
 
 </html>
