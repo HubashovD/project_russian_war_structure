@@ -71,9 +71,14 @@
     height: 100px;
 }
 
+#selectors {
+    align-self: center;
+    align-items: center;
+    align-content: center;
+}
+
 .main_grid {
     display: grid;
-    grid: auto;
     grid-template-columns: 50vw 50vw;
     grid-template-rows: repeat(5, 200px);
     margin-top: 3vw;
@@ -131,6 +136,7 @@
 
 #ierarchy {
     height: 100%;
+    position: relative;
 }
 
 .army-main {
@@ -151,11 +157,10 @@
     font-family: "proxima-medium";
 }
 
-
-/*#ierarchy {
-    width: 50vw;
-    height: 95vh;
-} */
+#ierarchy-2 {
+    width: 99vw;
+    height: 1000px;
+}
 
 #map {
     /*width: 50vw; */

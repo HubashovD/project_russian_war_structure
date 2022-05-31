@@ -22,37 +22,42 @@
         <p>Скільки бойових підрозділів Російська Федерація вже задіяла у війні з Україною? Чи є десь у "степах забайкалля" ще одна російська армія із потужною технікою, яку показують на парадах до "Дна перемоги"?</p>
         <!--Путін Хуйло-->
         <div class='usual_text_block'></div>
-        <select id="district_selector">
+        <div id='selectors'>
+            <select id="district_selector">
             <option value="Западный военный округ">Западный военный округ</option>
             <option value="Північний флот">Північний флот</option>
             <option value="Східний військовий округ">Східний військовий округ</option>
             <option value="Центральный военный округ">Центральный военный округ</option>
             <option value="Южный военный округ">Южный военный округ</option>
         </select>
-        <button id='total-selection'>
+            <button id='total-selection'>
 Умікни все!
         </button>
+            <button id='svitcher'> ierarchy</button>
+        </div>
 
 
 
 
-        <div class="main_grid">
-            <div class="box1">
-                <div id="ierarchy"></div>
-            </div>
-            <div class="box2">
-                <div uk-sticky="ierarchy" id="sticky">
-                    <div id='map'></div>
-                    <div id="box3"> Наведіть на точку на карті для отримання детальної інформації</div>
+        <div id='main_div'>
+            <div class="main_grid" id="main_grid">
+                <div class="box1" id="box1">
+                    <div id="ierarchy"></div>
+                </div>
+                <div class="box2" id="box2">
+                    <div uk-sticky="map_sticky" id="sticky">
+                        <div id='map'></div>
+                        <div id="box3"> Наведіть на точку на карті для отримання детальної інформації</div>
+                    </div>
                 </div>
             </div>
-
         </div>
-        <div id="stoper" style="height:2000px; color:blue;"> а тут ще текст є</div>
-        <!--<script src="js/ierarchy.js"></script> -->
-        <script src="js/ierarchy_rev2.js"></script>
+        <script src="js/ierarchy.js"></script>
+        <script src="js/list.js"></script>
         <script src="js/map.js"></script>
         <!-- <script scr="js/map_ rev2.js"></script> -->
+        <script>
+        </script>
         <script>
             function options() {
 
@@ -303,6 +308,85 @@
                 }
             }
             selectTotal()
+        </script>
+        <script>
+            function svitch_this() {
+                flag = "list"
+                butswitcher = document.getElementById("svitcher")
+                butswitcher.onclick = function() {
+                    if (flag == "list") {
+                        console.log(butswitcher)
+                        butswitcher.innerHTML = 'ierarchy'
+                        flag = "ierarchy"
+
+                        main_div = document.getElementById("main_div")
+                        while (main_div.firstChild) {
+                            main_div.removeChild(main_div.firstChild);
+                        }
+
+                        var ierarchy = document.createElement('div');
+                        ierarchy.classList.add("ierarchy")
+                        ierarchy.setAttribute('id', 'ierarchy')
+                        ierarchy.setAttribute('height', '100%')
+                            //child.id.add("cbox2")
+                        main_div.appendChild(ierarchy);
+
+
+                        ierarchyPainter()
+                    } else {
+                        butswitcher.innerHTML = 'list'
+                        flag = "list"
+
+                        main_div = document.getElementById("main_div")
+                        while (main_div.firstChild) {
+                            main_div.removeChild(main_div.firstChild);
+                        }
+
+                        maingrid = document.createElement('div');
+                        maingrid.classList.add("main_grid")
+                        maingrid.setAttribute('id', 'main_grid')
+                        main_div.appendChild(maingrid);
+
+                        var box1 = document.createElement('div');
+                        box1.classList.add("box1")
+                        box1.setAttribute('id', 'box1')
+                            //child.id.add("cbox2")
+                        maingrid.appendChild(box1);
+
+                        var ierarchy = document.createElement('div');
+                        ierarchy.classList.add("ierarchy")
+                        ierarchy.setAttribute('id', 'ierarchy')
+                            //child.id.add("cbox2")
+                        box1.appendChild(ierarchy);
+
+                        var box2 = document.createElement('div');
+                        box2.classList.add("box2")
+                        box2.setAttribute('id', 'box2')
+                            //child.id.add("cbox2")
+                        maingrid.appendChild(box2);
+
+                        var stickybox = document.createElement('div');
+                        stickybox.classList.add("sticky")
+                        stickybox.setAttribute('id', 'sticky')
+                            //child.id.add("cbox2")
+                        box2.appendChild(stickybox);
+
+                        var mapbox = document.createElement('div');
+                        mapbox.setAttribute('id', 'map')
+                        stickybox.appendChild(mapbox);
+                        var box3 = document.createElement('div');
+                        box3.setAttribute('id', 'box3')
+                        stickybox.appendChild(box3);
+
+                        listPainter()
+                        mapPainter()
+                    }
+
+                }
+                return flag
+            }
+            svitch_this()
+            listPainter()
         </script>
     </body>
 
