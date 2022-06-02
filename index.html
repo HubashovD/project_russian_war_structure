@@ -152,10 +152,19 @@
                                             elements[i].style.font = "18px proxima-medium";
 
                                         } else if (elements[i].localName == 'path') { // Лінії на карті приховані, і підсвічуються лише при наведенні
-                                            //console.log("path")
-                                            elements[i].style.strokewidth = "5px";
-                                            elements[i].style.stroke = 'red';
-                                            elements[i].style.opacity = "1";
+                                            //console.log(elements[i].classList)
+                                            //console.log(elements[i].classList.contains('link'))
+                                            if (elements[i].classList.contains('link')) {
+                                                // для ліній на ієрархії
+                                                console.log("path")
+                                                elements[i].style.strokewidth = "10px";
+                                                elements[i].style.stroke = 'red';
+                                            } else {
+                                                // для ліній на карті
+                                                elements[i].style.strokewidth = "5px";
+                                                elements[i].style.stroke = 'red';
+                                                elements[i].style.opacity = "1";
+                                            }
                                         } else {}
                                         //підсвічуємо назв населених пунктів та точки в Україні
                                         //console.log(elements[i])
@@ -204,10 +213,17 @@
                                             //console.log(elements[i])
                                             elements[i].style.font = "14px proxima-medium";
                                         } else if (elements[i].localName == 'path') {
-                                            //console.log("path")
-                                            elements[i].style.strokewidth = "1px";
-                                            elements[i].style.stroke = 'black';
-                                            //elements[i].style.opacity = "0";
+                                            if (elements[i].classList.contains('link')) {
+                                                // для ліній на ієрархії
+                                                elements[i].style.strokewidth = "1px";
+                                                elements[i].style.stroke = 'black';
+                                            } else {
+                                                // для ліній на карті 
+                                                //console.log("path")
+                                                elements[i].style.strokewidth = "1px";
+                                                elements[i].style.stroke = 'black';
+                                                elements[i].style.opacity = "0";
+                                            }
                                         } else {}
 
                                         // прибираємо підсвітку назв населених пунктів та точки в Україні
