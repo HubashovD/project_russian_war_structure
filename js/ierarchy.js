@@ -1,15 +1,8 @@
 function ierarchyPainter() {
     //console.log('from function ierarchy')
-
-    /*var svg = d3.select("#ierarchy"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height"),
-        i = svg.append("g").attr("transform", "translate(50,50)"); */
-
-    var margin = { top: 10, right: 100, bottom: 10, left: 100 },
+    var margin = { top: 10, right: 150, bottom: 10, left: 100 },
         width = d3.select("#ierarchy").node().getBoundingClientRect().width - margin.left - margin.right,
         height = d3.select("#ierarchy").node().getBoundingClientRect().height - margin.top - margin.bottom;
-    //height = 920 - margin.top - margin.bottom;
     console.log(height)
 
     var svg = d3.select("#ierarchy")
@@ -41,11 +34,6 @@ function ierarchyPainter() {
                 console.log('error_2')
             }
 
-
-            var tree = d3.tree()
-                .size([height - 10, width - 10])
-                //.size([height, width]);
-
             var cluster = d3.cluster()
                 .size([height, width - 160]);
             //.size([height, width]);
@@ -74,17 +62,13 @@ function ierarchyPainter() {
                 });
 
             cluster(root);
-            console.log(root)
-
-
+            //console.log(root)
 
             var link = i.selectAll(".link")
                 .data(root.descendants().slice(1))
                 .enter().append("path")
                 .attr("class", "link")
                 .attr("d", diagonal);
-
-
 
             var node = i.selectAll(".node")
                 .data(root.descendants())
@@ -100,7 +84,6 @@ function ierarchyPainter() {
 
             node.append("circle")
                 .attr("r", 2.5);
-            //.attr("class", 'sircle');
 
             node.append("text")
                 .attr("dy", 3)
@@ -115,6 +98,57 @@ function ierarchyPainter() {
                         //console.log(t)
                     return t;
                 });
+
+            var tooltip = d3.select("#ierarchy")
+                .append("div")
+                .style("opacity", 0)
+                .attr("class", "tooltip")
+                .style("background-color", "white")
+                .style("border", "solid")
+                .style("border-width", "1px")
+                .style("border-radius", "5px")
+                .style("padding", "10px")
+
+            // A function that change this tooltip when the user hover a point.
+            // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
+            var mouseover = function(d) {
+                //console.log(d3.select(this)._groups[0][0].__data__.x)
+                console.log(this.__data__)
+                tooltip
+                    .html(
+                        "<b>Назва:</b> " + this.__data__.data.id.substring(d.id.lastIndexOf(".") + 1) + "<br>" +
+                        "<b>Військова частина:</b> " + this.__data__.data.mil_part + "<br>" +
+                        "<b>Населений пункт:</b> " + this.__data__.data.city + "<br>" +
+                        "<b>Регіон:</b> " + this.__data__.data.region + "<br>"
+                    )
+                    .style("left", (this.__data__.y - 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+                    .style("top", (this.__data__.x) + "px")
+                    .style("opacity", 1)
+            }
+
+            /*var mousemove = function(d) {
+                //console.log(this)
+                tooltip
+                    .html("this is tooltip " + this.__data__.x + " " + this.__data__.y)
+                    .style("left", (this.__data__.y - 90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+                    .style("top", (this.__data__.x) + "px")
+                    //.style("left", (0) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
+                    //.style("top", (0) + "px")
+            } */
+
+
+            // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
+            var mouseleave = function(d) {
+                //console.log('mouseleave')
+                tooltip
+                    .transition()
+                    .duration(200)
+                    .style("opacity", 0)
+            }
+            node
+                .on("mouseover", mouseover)
+                //.on("mousemove", mousemove)
+                .on("mouseleave", mouseleave)
 
             var leafs = document.getElementsByClassName("node node--leaf"); // перебираємо кожен підрозділ, який є класом
             //console.log(leafs)
@@ -131,54 +165,16 @@ function ierarchyPainter() {
                 //console.log(circles)
 
                 circles
-                //.attr("class", leafs[z].__data__.id.substring(leafs[z].__data__.id.lastIndexOf(".") + 1));
                     .attr("class", leafs[z].__data__.data.unit_en + " " + leafs[z].__data__.data.crimes);
 
                 texts = elem.selectAll("text")
 
                 texts
                     .attr("class", leafs[z].__data__.data.unit_en + " " + leafs[z].__data__.data.crimes);
-
-                /*texts.onmouseover = function() {
-                    this.style.opacity = "1";
-                    this.style.color = 'red';
-                    this.style.strokewidth = "5";
-                };
-                texts.onmouseleave = function() {
-                    this.style.opacity = "0.4";
-                    this.style.color = 'black';
-                    this.style.strokewidth = "0.5";
-                }
-                texts.onclick = function() { // додаємо функцію по кліку друкувати в консоль
-                        console.log(this);
-                    } */
-                //leafs[z].selectAll('circle')
-                //    .attr("class", 'sircle')
-
-                //leafs[z].onclick = function() { // додаємо функцію по кліку друкувати в консоль
-                //    console.log(this);
-                //}
             }
             options()
 
-            //d3.selectAll("input")
-            //    .on("change", changed);
 
-            var timeout = setTimeout(function() {
-                d3.select("input[value=\"cluster\"]")
-                    .property("checked", true)
-                    .dispatch("change");
-            }, 1000);
-
-            /*function changed() {
-                timeout = clearTimeout(timeout);
-                (this.value === "tree" ? tree : cluster)(root);
-                var t = d3.transition().duration(750);
-                node.transition(t).attr("transform", function(d) {
-                    return "translate(" + d.y + "," + d.x + ")";
-                });
-                link.transition(t).attr("d", diagonal);
-            } */
         }
         // When the button is changed, run the updateChart function
         d3.select("#district_selector").on("change", function(d) {

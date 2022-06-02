@@ -72,9 +72,27 @@
 }
 
 #selectors {
-    align-self: center;
-    align-items: center;
-    align-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 15vw);
+    grid-template-rows: 1;
+    margin-top: 3vh;
+    grid-column-gap: 18px;
+    justify-content: center;
+}
+
+#district_selector {
+    width: 10vw;
+    height: 3vh;
+}
+
+#svitcher {
+    width: 10vw;
+    height: 3vh;
+}
+
+#total-selection {
+    width: 10vw;
+    height: 3vh;
 }
 
 .main_grid {
@@ -139,6 +157,12 @@
     position: relative;
 }
 
+#ierarchy .tooltip {
+    position: absolute;
+    z-index: 999;
+    pointer-events: none;
+}
+
 .army-main {
     display: block;
     float: left;
@@ -155,11 +179,6 @@
     margin-left: 50px;
     font: 14px "proxima-medium";
     font-family: "proxima-medium";
-}
-
-#ierarchy-2 {
-    width: 99vw;
-    height: 1000px;
 }
 
 #map {

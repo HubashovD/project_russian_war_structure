@@ -93,13 +93,6 @@ function mapPainter() {
         // Load world shape
         d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data) {
 
-            /*WRITE A FILTER!!!!*/
-            /*data.features = data.features.filter(function(d) {
-                    console.log(d.properties.name)
-                    return d.properties.name == 'Russia'
-                }) */
-
-
             // Draw the map
             map_svg.append("g")
                 .selectAll("path")
@@ -111,45 +104,6 @@ function mapPainter() {
                 )
                 .style("stroke", "#d0cfd4")
                 .style("stroke-width", 1)
-
-
-
-
-            var tooltip = d3.select("#map")
-                .append("div")
-                .style("opacity", 0)
-                .attr("class", "tooltip")
-                .style("background-color", "white")
-                .style("border", "solid")
-                .style("border-width", "1px")
-                .style("border-radius", "5px")
-                .style("padding", "10px")
-
-
-
-            // A function that change this tooltip when the user hover a point.
-            // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
-            var mouseover = function(d) {
-                tooltip
-                    .style("opacity", 1)
-            }
-
-            var mousemove = function(d) {
-                tooltip
-                    .html("this is tooltip " + d.coordinates + "\n" + d.unit + " " + d.city + ", " + d.region)
-                    .style("left", (d3.mouse(this)[0]) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-                    .style("top", (d3.mouse(this)[1]) + "px")
-            }
-
-
-            // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
-            var mouseleave = function(d) {
-                tooltip
-                    .transition()
-                    .duration(200)
-                    .style("opacity", 0)
-            }
-
 
             // Add the lines
             map_svg.selectAll("myPath")
@@ -181,12 +135,6 @@ function mapPainter() {
                 .attr("stroke", "grey")
                 .attr("stroke-width", 1)
                 .attr("fill-opacity", 0.4)
-                //.on("mouseover", mouseover)
-                //.on("mousemove", mousemove)
-                //.on("mouseleave", mouseleave)
-
-            //var text_explainer = d3.select("#map")
-            //console.log(text_explainer)
 
 
             // додаємо підписи доля населених пунктів в яких дислокуються військові підрозділи російської армії
@@ -223,9 +171,9 @@ function mapPainter() {
                 .attr("stroke", "black")
                 .attr("stroke-width", 3)
                 .attr("opacity", 0)
-                .on("mouseover", mouseover)
-                .on("mousemove", mousemove)
-                .on("mouseleave", mouseleave)
+                //.on("mouseover", mouseover)
+                //.on("mousemove", mousemove)
+                //.on("mouseleave", mouseleave)
 
 
 
@@ -247,41 +195,6 @@ function mapPainter() {
                 .style("border-width", "1px")
                 .style("border-radius", "5px")
                 .style("opacity", 0)
-
-            /*
-                    // add the points
-                    link.forEach(function(d) {
-                        var photo = document.getElementsByClassName(d.unit); //перебираємо кожен підрозділ, який є класом
-                        //console.log(photo)
-                        for (var i = 0; i < photo.length; i++) {
-                            try { // до кожного підрозідлу перебираємо всі елементи
-                                //console.log(i)
-                                //console.log(photo[i])
-                                //var elem = document.getElementsByClassName(photo[i]);
-                                //console.log(elem)
-                                photo[i].onmouseover = function() {
-                                    this.style.opacity = "1";
-                                    this.style.stroke = 'red';
-                                    this.style.strokewidth = "5";
-                                };
-                                photo[i].onmouseleave = function() {
-                                    this.style.opacity = "0.4";
-                                    this.style.stroke = 'black';
-                                    this.style.strokewidth = "0.5";
-                                }
-                                photo[i].onclick = function() { // додаємо функцію по кліку друкувати в консоль
-                                    console.log(this);
-                                }
-                            } catch {
-                                continue
-                            }
-                        };
-                    }) */
-
-
-
-
-
         })
 
         options()

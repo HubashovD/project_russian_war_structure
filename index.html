@@ -30,7 +30,7 @@
             <option value="Центральный военный округ">Центральный военный округ</option>
             <option value="Южный военный округ">Южный военный округ</option>
         </select>
-            <button id='svitcher'> ierarchy</button>
+            <button id='svitcher'>Відобразити ієрархію</button>
             <button id='total-selection'>Умікни все!</button>
         </div>
 
@@ -103,24 +103,24 @@
                                         }
                                         //console.log(description)
                                         //console.log(this.classList[0])
-
-                                        f = this.classList[0]
-                                            //console.log(f)
-                                        var filtered_unit = data.filter(function(d) {
+                                        try {
+                                            f = this.classList[0]
+                                                //console.log(f)
+                                            var filtered_unit = data.filter(function(d) {
                                                 return d.unit_en === f
                                             })
-                                            //console.log(filtered_unit[0])
+                                            console.log(filtered_unit[0])
 
-                                        text =
-                                            "<b>Назва підрозділу:</b> " +
-                                            filtered_unit[0].unit + "<br>" +
-                                            "<b>Підрозділ командування:</b> " +
-                                            filtered_unit[0].division + "<br>" +
-                                            "<b>Армія:</b> " + filtered_unit[0].army + ", " + filtered_unit[0].district + "<br>" +
-                                            "<b>Місце дислокації:</b> " + filtered_unit[0].city + ", " + filtered_unit[0].region + "<br>" +
-                                            "<b>Військова частина</b> " + filtered_unit[0].mil_part
+                                            text =
+                                                "<b>Назва підрозділу:</b> " +
+                                                filtered_unit[0].unit + "<br>" +
+                                                "<b>Підрозділ командування:</b> " +
+                                                filtered_unit[0].division + "<br>" +
+                                                "<b>Армія:</b> " + filtered_unit[0].army + ", " + filtered_unit[0].district + "<br>" +
+                                                "<b>Місце дислокації:</b> " + filtered_unit[0].city + ", " + filtered_unit[0].region + "<br>" +
+                                                "<b>Військова частина</b> " + filtered_unit[0].mil_part
 
-
+                                        } catch {}
 
                                         //console.log(text)
 
@@ -315,7 +315,7 @@
                 butswitcher.onclick = function() {
                     if (flag == "list") {
                         console.log(butswitcher)
-                        butswitcher.innerHTML = 'list'
+                        butswitcher.innerHTML = 'Список та карта'
                         flag = "ierarchy"
 
                         main_div = document.getElementById("main_div")
@@ -332,9 +332,12 @@
                         totalSelectionBut = document.getElementById("total-selection")
                         totalSelectionBut.remove()
 
+                        status = document.getElementById('district_selector')
+                        console.log(status)
+
                         ierarchyPainter()
                     } else {
-                        butswitcher.innerHTML = 'ierarchy'
+                        butswitcher.innerHTML = 'Відобразити ієрархію'
                         flag = "list"
 
                         main_div = document.getElementById("main_div")
@@ -368,6 +371,7 @@
                         var stickybox = document.createElement('div');
                         stickybox.classList.add("sticky")
                         stickybox.setAttribute('id', 'sticky')
+                        stickybox.setAttribute('uk-sticky', 'map_sticky')
                             //child.id.add("cbox2")
                         box2.appendChild(stickybox);
 

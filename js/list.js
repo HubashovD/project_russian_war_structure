@@ -9,7 +9,7 @@ function listPainter() {
             // фільтруємо дані по військовому округу
             var filtered = data.filter(function(d) { return d.district === f })
                 //вимірюємо кількість підрозділів в військовому окрузі
-            console.log(filtered.length)
+                //console.log(filtered.length)
 
             ierarchy = document.getElementById("ierarchy")
 
@@ -104,7 +104,7 @@ function listPainter() {
         d3.select("#district_selector").on("change", function(d) {
             // recover the option that has been chosen
             var selectedOption = d3.select(this).property("value")
-            console.log(selectedOption)
+                //console.log(selectedOption)
                 // run the updateChart function with this selected option
             update(selectedOption)
             options()
