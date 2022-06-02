@@ -211,10 +211,39 @@ function ierarchyPainter() {
                     } catch {}
                 }
                 //console.log(internals[x])
-
             }
+            links = document.getElementsByClassName("link")
 
+            for (var x = 0; x < links.length; x++) {
+                console.log(links[x])
 
+                var classesList = []
+                try {
+                    for (var y = 0; y < links[x].__data__.children.length; y++) {
+                        //console.log(links[x].__data__.children[y].data.unit_en)
+                        classesList.push(links[x].__data__.children[y].data.unit_en)
+                        try {
+                            for (var z = 0; z < links[x].__data__.children[y].children.length; z++) {
+                                //console.log(links[x].__data__.children[y].children[z].data.unit_en)
+                                classesList.push(links[x].__data__.children[y].children[z].data.unit_en)
+                                try {
+                                    for (var q = 0; q < links[x].__data__.children[y].children[z].children.length; q++) {
+                                        //console.log(internals[x].__data__.children[y].children[z].children[q].data.unit_en)
+                                        classesList.push(links[x].__data__.children[y].children[z].children[q].data.unit_en)
+                                    }
+                                } catch {}
+                            }
+                        } catch {}
+                    }
+
+                } catch {}
+                console.log(classesList)
+                for (var k = 0; k < classesList.length; k++) {
+                    try {
+                        links[x].classList.add(classesList[k])
+                    } catch {}
+                }
+            }
             options()
 
 
