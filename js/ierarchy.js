@@ -215,7 +215,7 @@ function ierarchyPainter() {
             links = document.getElementsByClassName("link")
 
             for (var x = 0; x < links.length; x++) {
-                console.log(links[x])
+                //console.log(links[x])
 
                 var classesList = []
                 try {
@@ -237,7 +237,7 @@ function ierarchyPainter() {
                     }
 
                 } catch {}
-                console.log(classesList)
+                //console.log(classesList)
                 for (var k = 0; k < classesList.length; k++) {
                     try {
                         links[x].classList.add(classesList[k])
