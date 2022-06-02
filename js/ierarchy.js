@@ -2,8 +2,9 @@ function ierarchyPainter() {
     //console.log('from function ierarchy')
     var margin = { top: 10, right: 150, bottom: 10, left: 100 },
         width = d3.select("#ierarchy").node().getBoundingClientRect().width - margin.left - margin.right,
-        height = d3.select("#ierarchy").node().getBoundingClientRect().height - margin.top - margin.bottom;
-    console.log(height)
+        //height = d3.select("#ierarchy").node().getBoundingClientRect().height - margin.top - margin.bottom;
+        height = 2000
+        //console.log(height)
 
     var svg = d3.select("#ierarchy")
         .append("svg")
@@ -67,7 +68,10 @@ function ierarchyPainter() {
             var link = i.selectAll(".link")
                 .data(root.descendants().slice(1))
                 .enter().append("path")
-                .attr("class", "link")
+                .attr("class", function(d) {
+                    //console.log(d)
+                    return d.data.unit_en + " " + d.data.crimes + " link"
+                })
                 .attr("d", diagonal);
 
             var node = i.selectAll(".node")
@@ -75,12 +79,14 @@ function ierarchyPainter() {
                 .enter().append("g")
                 .attr("class", function(d) {
                     //console.log(d.children)
-                    return "node" + (d.children ? " node--internal" : " node--leaf");
+                    return "node " + (d.children ? "node node--internal" : " node--leaf");
                 })
                 .attr("transform", function(d) {
                     //console.log(d.y)
                     return "translate(" + d.y + "," + d.x + ")";
                 });
+
+
 
             node.append("circle")
                 .attr("r", 2.5);
@@ -113,7 +119,7 @@ function ierarchyPainter() {
             // Its opacity is set to 1: we can now see it. Plus it set the text and position of tooltip depending on the datapoint (d)
             var mouseover = function(d) {
                 //console.log(d3.select(this)._groups[0][0].__data__.x)
-                console.log(this.__data__)
+                //console.log(this.__data__)
                 tooltip
                     .html(
                         "<b>Назва:</b> " + this.__data__.data.id.substring(d.id.lastIndexOf(".") + 1) + "<br>" +
@@ -139,16 +145,16 @@ function ierarchyPainter() {
 
             // A function that change this tooltip when the leaves a point: just need to set opacity to 0 again
             var mouseleave = function(d) {
-                //console.log('mouseleave')
-                tooltip
-                    .transition()
-                    .duration(200)
-                    .style("opacity", 0)
-            }
-            node
-                .on("mouseover", mouseover)
-                //.on("mousemove", mousemove)
-                .on("mouseleave", mouseleave)
+                    //console.log('mouseleave')
+                    tooltip
+                        .transition()
+                        .duration(200)
+                        .style("opacity", 0)
+                }
+                /*node
+                   .on("mouseover", mouseover)
+                   //.on("mousemove", mousemove)
+                   .on("mouseleave", mouseleave) */
 
             var leafs = document.getElementsByClassName("node node--leaf"); // перебираємо кожен підрозділ, який є класом
             //console.log(leafs)
@@ -172,6 +178,43 @@ function ierarchyPainter() {
                 texts
                     .attr("class", leafs[z].__data__.data.unit_en + " " + leafs[z].__data__.data.crimes);
             }
+            internals = document.getElementsByClassName("node node--internal"); // перебираємо кожен підрозділ, який є класом
+
+            for (var x = 0; x < internals.length; x++) {
+                //console.log(internals[x]) // перебираємо всі об'єкти із класом node node--internal все що нижче відноситься до кожного окремого об'єкту
+                //console.log(internals[x].__data__.id) // перебираємо всі об'єкти із класом node node--internal все що нижче відноситься до кожного окремого об'єкту
+                var classesList = []
+
+                for (var y = 0; y < internals[x].__data__.children.length; y++) {
+                    //console.log(internals[x].__data__.children[y].data.unit_en)
+                    classesList.push(internals[x].__data__.children[y].data.unit_en)
+                    try {
+                        for (var z = 0; z < internals[x].__data__.children[y].children.length; z++) {
+                            //console.log(internals[x].__data__.children[y].children[z].data.unit_en)
+                            classesList.push(internals[x].__data__.children[y].children[z].data.unit_en)
+                            try {
+                                for (var q = 0; q < internals[x].__data__.children[y].children[z].children.length; q++) {
+                                    //console.log(internals[x].__data__.children[y].children[z].children[q].data.unit_en)
+                                    classesList.push(internals[x].__data__.children[y].children[z].children[q].data.unit_en)
+                                }
+                            } catch {}
+                        }
+                    } catch {}
+                }
+
+                //console.log(classesList)
+                for (var k = 0; k < classesList.length; k++) {
+                    try {
+                        for (var u = 0; u < internals[x].childNodes.length; u++) {
+                            internals[x].childNodes[u].classList.add(classesList[k]);
+                        }
+                    } catch {}
+                }
+                //console.log(internals[x])
+
+            }
+
+
             options()
 
 

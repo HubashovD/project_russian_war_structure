@@ -30,7 +30,6 @@
             <option value="Центральный военный округ">Центральный военный округ</option>
             <option value="Южный военный округ">Южный военный округ</option>
         </select>
-            <button id='svitcher'>Відобразити ієрархію</button>
             <button id='total-selection'>Умікни все!</button>
         </div>
 
@@ -50,7 +49,7 @@
             </div>
         </div>
         <script src="js/ierarchy.js"></script>
-        <script src="js/list.js"></script>
+        <!-- <script src="js/list.js"></script> -->
         <script src="js/map.js"></script>
         <!-- <script scr="js/map_ rev2.js"></script> -->
         <script>
@@ -107,9 +106,9 @@
                                             f = this.classList[0]
                                                 //console.log(f)
                                             var filtered_unit = data.filter(function(d) {
-                                                return d.unit_en === f
-                                            })
-                                            console.log(filtered_unit[0])
+                                                    return d.unit_en === f
+                                                })
+                                                //console.log(filtered_unit[0])
 
                                             text =
                                                 "<b>Назва підрозділу:</b> " +
@@ -132,7 +131,7 @@
                                     } catch {}
 
                                     elements = document.getElementsByClassName(d.unit)
-                                        //console.log(elements)
+                                    console.log(elements)
                                         //texts = elements.selectAll('text')
                                         //console.log(texts)
 
@@ -163,7 +162,6 @@
                                         try {
                                             var myClass = this.classList;
                                             //console.log(myClass[0]);
-                                            //text_label = map_svg.selectAll(myClass[0] + " text_explainer")
                                             text_label = document.getElementsByClassName(myClass[0] + " text-explainer")
                                                 //console.log(text_label[0])
                                             text_label[0].style.opacity = "1";
@@ -177,32 +175,6 @@
                                             war_explainer = document.getElementsByClassName(myClass[0] + " war-explainer")
                                             war_explainer[0].style.opacity = "1";
                                         } catch {}
-                                        //war_point = document.getElementsByClassName(myClass[0] + " war_point")
-                                        //war_point[0].style.opacity = "1";
-
-                                        //war_explainer = document.getElementsByClassName(myClass[0] + " war_explainer")
-                                        //war_point[0].style.opacity = "1";
-
-                                        //text_explainer = document.getElementsByClassName(myClass[0] + " text_explainer")
-                                        //console.log(text_explainer)
-                                        //map_circles = 
-                                        //console.log(map_circles)
-                                        //map_circles = document.getElementsByClassName(myClass[0] + " map-circle")
-                                        //console.log(map_circles[0].parentNode)
-
-                                        //text_explainer = map_circles[0].parentNode
-                                        //text_explainer
-                                        //    .append("g")
-                                        //map_circles = document.getElementsByClassName("map-circle")
-                                        //map_circles = document.querySelector(elements[i] + " map-circle")
-                                        //console.log(map_circles)
-                                        /*for (var i = 0; i < map_circles.length; i++) {
-                                            console.log(map_circles[i])
-                                            console.log(map_circles.selelect(elements[i]))
-                                                //if (map_circles[i].classList[0] === elements[i]) {
-                                                //    console.log("map " + elements[i].classList[0])
-                                                //} else {}
-                                        } */
                                     }
                                 };
                                 photo[i].onmouseleave = function() {
@@ -235,7 +207,7 @@
                                             //console.log("path")
                                             elements[i].style.strokewidth = "1px";
                                             elements[i].style.stroke = 'black';
-                                            elements[i].style.opacity = "0";
+                                            //elements[i].style.opacity = "0";
                                         } else {}
 
                                         // прибираємо підсвітку назв населених пунктів та точки в Україні
@@ -307,98 +279,6 @@
                 }
             }
             selectTotal()
-        </script>
-        <script>
-            function svitch_this() {
-                flag = "list"
-                butswitcher = document.getElementById("svitcher")
-                butswitcher.onclick = function() {
-                    if (flag == "list") {
-                        console.log(butswitcher)
-                        butswitcher.innerHTML = 'Список та карта'
-                        flag = "ierarchy"
-
-                        main_div = document.getElementById("main_div")
-                        while (main_div.firstChild) {
-                            main_div.removeChild(main_div.firstChild);
-                        }
-
-                        var ierarchy = document.createElement('div');
-                        ierarchy.classList.add("ierarchy")
-                        ierarchy.setAttribute('id', 'ierarchy')
-                            //ierarchy.setAttribute('height', '99vh')
-                            //child.id.add("cbox2")
-                        main_div.appendChild(ierarchy);
-                        totalSelectionBut = document.getElementById("total-selection")
-                        totalSelectionBut.remove()
-
-                        status = document.getElementById('district_selector')
-                        console.log(status)
-
-                        ierarchyPainter()
-                    } else {
-                        butswitcher.innerHTML = 'Відобразити ієрархію'
-                        flag = "list"
-
-                        main_div = document.getElementById("main_div")
-                        while (main_div.firstChild) {
-                            main_div.removeChild(main_div.firstChild);
-                        }
-
-                        maingrid = document.createElement('div');
-                        maingrid.classList.add("main_grid")
-                        maingrid.setAttribute('id', 'main_grid')
-                        main_div.appendChild(maingrid);
-
-                        var box1 = document.createElement('div');
-                        box1.classList.add("box1")
-                        box1.setAttribute('id', 'box1')
-                            //child.id.add("cbox2")
-                        maingrid.appendChild(box1);
-
-                        var ierarchy = document.createElement('div');
-                        ierarchy.classList.add("ierarchy")
-                        ierarchy.setAttribute('id', 'ierarchy')
-                            //child.id.add("cbox2")
-                        box1.appendChild(ierarchy);
-
-                        var box2 = document.createElement('div');
-                        box2.classList.add("box2")
-                        box2.setAttribute('id', 'box2')
-                            //child.id.add("cbox2")
-                        maingrid.appendChild(box2);
-
-                        var stickybox = document.createElement('div');
-                        stickybox.classList.add("sticky")
-                        stickybox.setAttribute('id', 'sticky')
-                        stickybox.setAttribute('uk-sticky', 'map_sticky')
-                            //child.id.add("cbox2")
-                        box2.appendChild(stickybox);
-
-                        var mapbox = document.createElement('div');
-                        mapbox.setAttribute('id', 'map')
-                        stickybox.appendChild(mapbox);
-                        var box3 = document.createElement('div');
-                        box3.setAttribute('id', 'box3')
-                        stickybox.appendChild(box3);
-
-                        var buttonsBlock = document.getElementById("selectors")
-                        var totalSelectionBut = document.createElement('button');
-                        totalSelectionBut.setAttribute('id', 'total-selection')
-                        totalSelectionBut.innerHTML = 'Умікни усе!'
-                            //totalSelectionBut.setAttribute('height', '10px')
-                        buttonsBlock.appendChild(totalSelectionBut);
-
-                        selectTotal()
-                        listPainter()
-                        mapPainter()
-                    }
-
-                }
-                return flag
-            }
-            svitch_this()
-            listPainter()
         </script>
     </body>
 
