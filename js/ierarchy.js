@@ -1,5 +1,5 @@
 function ierarchyPainter() {
-    console.log('from function ierarchy')
+    //console.log('from function ierarchy')
 
     /*var svg = d3.select("#ierarchy"),
         width = +svg.attr("width"),
@@ -10,13 +10,14 @@ function ierarchyPainter() {
         width = d3.select("#ierarchy").node().getBoundingClientRect().width - margin.left - margin.right,
         height = d3.select("#ierarchy").node().getBoundingClientRect().height - margin.top - margin.bottom;
     //height = 920 - margin.top - margin.bottom;
+    console.log(height)
 
     var svg = d3.select("#ierarchy")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
 
-    console.log(svg)
+    //console.log(svg)
 
 
     d3.csv("data.csv", function(error, data, ) {
