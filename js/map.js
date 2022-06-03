@@ -42,8 +42,9 @@ function mapPainter() {
 
         d3.json("ukraine.geojson", function(error, json) {
             if (error) console.error(error);;
+
             var map_path = d3.geoPath().projection(projection);
-            console.log(map_path)
+            //console.log(map_path)
 
             map_svg.selectAll("u_path")
                 .data(json.features)
@@ -54,6 +55,44 @@ function mapPainter() {
                 //.attr("stroke", "black")
                 .style("opacity", 0.5);
         });
+
+
+
+        function updateRegion(region) {
+            d3.json("data/" + region + ".geojson", function(error, json) {
+                try {
+                    var reg = document.getElementById("region")
+                        //console.log(reg)
+                    reg.remove()
+                } catch {}
+
+                if (error) console.error(error);;
+
+                var map_path = d3.geoPath().projection(projection);
+                //console.log(json)
+
+                map_svg.selectAll("r_path")
+                    .data(json.features)
+                    .enter()
+                    .append("path")
+                    .attr("id", "region")
+                    .attr("d", map_path)
+                    .attr("fill", "None")
+                    .attr("stroke", "black")
+                    .style("opacity", 0.5);
+            });
+
+        }
+        // When the button is changed, run the updateChart function
+        d3.select("#district_selector").on("change.map", function(d) {
+            console.log("update MAP")
+                // recover the option that has been chosen
+            var region = d3.select(this).property("value")
+                //console.log(selectedOption)
+                // run the updateChart function with this selected option
+            updateRegion(region)
+        })
+        updateRegion("Західний військовий округ")
 
         options()
         var link = []

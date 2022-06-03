@@ -249,14 +249,16 @@ function ierarchyPainter() {
 
         }
         // When the button is changed, run the updateChart function
-        d3.select("#district_selector").on("change", function(d) {
-            // recover the option that has been chosen
+        d3.select("#district_selector").on("change.hierarchy", function(d) {
+            console.log("update HIERARCHY")
+                // recover the option that has been chosen
             var selectedOption = d3.select(this).property("value")
                 //console.log(selectedOption)
                 // run the updateChart function with this selected option
             update(selectedOption)
         })
         update("Західний військовий округ")
+
     });
 
     function diagonal(d) {
