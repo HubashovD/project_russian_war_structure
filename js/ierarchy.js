@@ -1,6 +1,6 @@
 function ierarchyPainter() {
     //console.log('from function ierarchy')
-    var margin = { top: 10, right: 150, bottom: 10, left: 100 },
+    var margin = { top: 10, right: 150, bottom: 10, left: 200 },
         width = d3.select("#ierarchy").node().getBoundingClientRect().width - margin.left - margin.right,
         //height = d3.select("#ierarchy").node().getBoundingClientRect().height - margin.top - margin.bottom;
         height = 2000
@@ -256,7 +256,7 @@ function ierarchyPainter() {
                 // run the updateChart function with this selected option
             update(selectedOption)
         })
-        update("Западный военный округ")
+        update("Західний військовий округ")
     });
 
     function diagonal(d) {

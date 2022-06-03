@@ -183,7 +183,7 @@
 
 #map {
     /*width: 50vw; */
-    height: 100%;
+    height: 70%;
     position: relative;
     display: block !important;
     align-self: top;
@@ -211,17 +211,8 @@
 .node text {
     font: 10px "proxima-medium";
     font-family: "proxima-medium";
+    opacity: 0.5;
 }
-
-.Yes text circle {
-    fill: red !important
-}
-
-
-/*.node text:hover {
-        font: 14px sans-serif;
-        color: red;
-    } */
 
 .node--internal circle {
     fill: #555;

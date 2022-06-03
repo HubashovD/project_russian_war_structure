@@ -29,23 +29,33 @@ function mapPainter() {
 
     // Map and projection
     var projection = d3.geoMercator()
-        .scale(350) //400 350
+        .scale(359) //400 350 360
         .rotate([-90, 0])
-        .center([10, 70]) //[0, 70]
+        .center([5, 65]) //[0, 70] [5, 70]
         /*.translate([width / 2, height / 2 * 1.3]) */
 
 
+
+
+
     d3.csv("map.csv", function(data) {
+
+        d3.json("ukraine.geojson", function(error, json) {
+            if (error) console.error(error);;
+            var map_path = d3.geoPath().projection(projection);
+            console.log(map_path)
+
+            map_svg.selectAll("u_path")
+                .data(json.features)
+                .enter()
+                .append("path")
+                .attr("d", map_path)
+                .attr("fill", "red")
+                //.attr("stroke", "black")
+                .style("opacity", 0.5);
+        });
+
         options()
-
-
-        // Create data: coordinates of start and end
-
-        /*
-            data.forEach(function(d) {
-                data = data.filter(d.ru_f == "")
-            }) */
-
         var link = []
         var points = []
         data.forEach(function(d) {
@@ -129,12 +139,12 @@ function mapPainter() {
                 .attr("class", function(d) { return d.unit_en + " " + d.crimes + " map-circle" })
                 .attr("cx", function(d) { return projection(d.coordinates[1])[0] })
                 .attr("cy", function(d) { return projection(d.coordinates[1])[1] })
-                .attr("r", 3)
+                .attr("r", 5)
                 //.attr("class", "circle")
-                .style("fill", "blsck")
-                .attr("stroke", "grey")
-                .attr("stroke-width", 1)
-                .attr("fill-opacity", 0.4)
+                .style("fill", "black")
+                //.attr("stroke", "grey")
+                //.attr("stroke-width", 1)
+                .attr("fill-opacity", 0.5)
 
 
             // додаємо підписи доля населених пунктів в яких дислокуються військові підрозділи російської армії
@@ -145,7 +155,7 @@ function mapPainter() {
                 .enter().append("text")
                 //.attr("class", "text_explainer")
                 .attr("class", function(d) { return d.unit_en + " text-explainer" })
-                .text(function(d) { return d.city + ", " + d.region })
+                .text(function(d) { return d.city })
                 .attr("x", function(d) {
                     return projection(d.coordinates[1])[0]
                 })
@@ -168,8 +178,8 @@ function mapPainter() {
                 .attr("cy", function(d) { return projection(d.coordinates[0])[1] })
                 .attr("r", 3)
                 .style("fill", "grey")
-                .attr("stroke", "black")
-                .attr("stroke-width", 3)
+                //.attr("stroke", "black")
+                //.attr("stroke-width", 3)
                 .attr("opacity", 0)
                 //.on("mouseover", mouseover)
                 //.on("mousemove", mousemove)
@@ -195,9 +205,13 @@ function mapPainter() {
                 .style("border-width", "1px")
                 .style("border-radius", "5px")
                 .style("opacity", 0)
+
+
         })
+
 
         options()
     })
+
 }
 mapPainter()
