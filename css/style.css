@@ -77,16 +77,12 @@
 }
 
 #selectors {
-    display: grid;
-    grid-template-columns: repeat(3, 15vw);
-    grid-template-rows: 1;
     margin-top: 3vh;
-    grid-column-gap: 18px;
-    justify-content: center;
 }
 
 #district_selector {
     width: 10vw;
+    margin-left: 10vw;
     height: 3vh;
 }
 
@@ -126,6 +122,10 @@
     position: relative;
     height: 80vh;
     width: 49vw;
+}
+
+#map-explainer {
+    font: 14px "proxima-bold";
 }
 
 .text-explainer {
