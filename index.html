@@ -83,134 +83,193 @@
                         })
                     });
 
-                    //console.log(link)
                     unit_list.forEach(function(d) {
                         var photo = document.getElementsByClassName(d.unit); //перебираємо кожен підрозділ, який є класом
-                        //console.log(photo)
                         for (var i = 0; i < photo.length; i++) { // перебираємо кожен елемент у списку класів
-                            //console.log(photo[i])
-                            //console.log(photo[i].length)
-                            try { // для кожного елементу із списку класів додаємо властивість, якщо елемента немає в списку - пропускаємо
-                                photo[i].onmouseover = function() {
-                                    try {
-                                        description = document.getElementById("box3")
-                                        while (description.firstChild) {
-                                            description.removeChild(description.firstChild);
+                            // для кожного елементу із списку класів додаємо властивість, якщо елемента немає в списку - пропускаємо
+                            photo[i].onmouseover = function() {
+                                try {
+                                    description = document.getElementById("box3")
+                                    while (description.firstChild) {
+                                        description.removeChild(description.firstChild);
+                                    }
+                                    //console.log(description)
+                                    //console.log(this.classList[0])
+                                    f = this.classList[0]
+                                        //console.log(f)
+                                    var filtered_unit = data.filter(function(d) {
+                                            return d.unit_en === f
+                                        })
+                                        //console.log(filtered_unit[0])
+
+                                    // додаємо блок із описом
+                                    var child = document.createElement('div');
+                                    child.classList.add("total-description")
+                                    description.appendChild(child);
+
+                                    // додаємо перший заголовок
+                                    var header_desk_text =
+                                        "НАЗВА ПІДРОЗДІЛУ:"
+                                    var header_desk = document.createElement('p');
+                                    header_desk.innerHTML = header_desk_text
+                                    header_desk.classList.add("total-description-header")
+                                    child.appendChild(header_desk);
+
+                                    var desk_text =
+                                        filtered_unit[0].unit
+                                    var desk_text_el = document.createElement('p');
+                                    desk_text_el.innerHTML = desk_text
+                                    desk_text_el.classList.add("total-description-text")
+                                    child.appendChild(desk_text_el);
+
+                                    var header_desk_text =
+                                        "ПІДРОЗДІЛ КОМАНДУВАННЯ:"
+                                    var header_desk = document.createElement('p');
+                                    header_desk.innerHTML = header_desk_text
+                                    header_desk.classList.add("total-description-header")
+                                    child.appendChild(header_desk);
+
+                                    var desk_text =
+                                        filtered_unit[0].division
+                                    var desk_text_el = document.createElement('p');
+                                    desk_text_el.innerHTML = desk_text
+                                    desk_text_el.classList.add("total-description-text")
+                                    child.appendChild(desk_text_el);
+
+                                    var header_desk_text =
+                                        "АРМІЯ:"
+                                    var header_desk = document.createElement('p');
+                                    header_desk.innerHTML = header_desk_text
+                                    header_desk.classList.add("total-description-header")
+                                    child.appendChild(header_desk);
+
+                                    var desk_text =
+                                        filtered_unit[0].army + ", " + filtered_unit[0].district
+                                    var desk_text_el = document.createElement('p');
+                                    desk_text_el.innerHTML = desk_text
+                                    desk_text_el.classList.add("total-description-text")
+                                    child.appendChild(desk_text_el);
+
+                                    var header_desk_text =
+                                        "МІСЦЕ ДИСЛОКАЦІЇ:"
+                                    var header_desk = document.createElement('p');
+                                    header_desk.innerHTML = header_desk_text
+                                    header_desk.classList.add("total-description-header")
+                                    child.appendChild(header_desk);
+
+                                    var desk_text =
+                                        filtered_unit[0].city + ", " + filtered_unit[0].region
+                                    var desk_text_el = document.createElement('p');
+                                    desk_text_el.innerHTML = desk_text
+                                    desk_text_el.classList.add("total-description-text")
+                                    child.appendChild(desk_text_el);
+
+                                    var header_desk_text =
+                                        "ВІЙСЬКОВА ЧАСТИНА:"
+                                    var header_desk = document.createElement('p');
+                                    header_desk.innerHTML = header_desk_text
+                                    header_desk.classList.add("total-description-header")
+                                    child.appendChild(header_desk);
+
+                                    var desk_text =
+                                        filtered_unit[0].mil_part
+                                    var desk_text_el = document.createElement('p');
+                                    desk_text_el.innerHTML = desk_text
+                                    desk_text_el.classList.add("total-description-text")
+                                    child.appendChild(desk_text_el);
+
+
+                                } catch {}
+
+                                elements = document.getElementsByClassName(d.unit)
+                                    // параметри для всіх елементів, на які наводиться мишка
+                                for (var i = 0; i < elements.length; i++) {
+                                    if (elements[i].localName == 'circle') {
+                                        elements[i].style.r = "10"
+                                    } else if (elements[i].localName == 'text') {
+                                        elements[i].style.font = "14px proxima-medium";
+                                        if (elements[i].classList.contains("war-explainer-text"))
+                                            elements[i].style.opacity = "1";
+                                        else {}
+                                    } else if (elements[i].localName == 'rect') {
+                                        elements[i].style.opacity = "1";
+                                    } else if (elements[i].localName == 'path') { // Лінії на карті приховані, і підсвічуються лише при наведенні
+                                        if (elements[i].classList.contains('link')) {
+                                            // для ліній на ієрархії
+                                            elements[i].style.strokewidth = "20px";
+                                        } else {
+                                            // для ліній на карті
+                                            elements[i].style.strokewidth = "5px";
+                                            elements[i].style.opacity = "1";
                                         }
-                                        //console.log(description)
-                                        //console.log(this.classList[0])
-                                        try {
-                                            f = this.classList[0]
-                                                //console.log(f)
-                                            var filtered_unit = data.filter(function(d) {
-                                                    return d.unit_en === f
-                                                })
-                                                //console.log(filtered_unit[0])
-
-                                            text =
-                                                "<b>Назва підрозділу:</b> " +
-                                                filtered_unit[0].unit + "<br>" +
-                                                "<b>Підрозділ командування:</b> " +
-                                                filtered_unit[0].division + "<br>" +
-                                                "<b>Армія:</b> " + filtered_unit[0].army + ", " + filtered_unit[0].district + "<br>" +
-                                                "<b>Місце дислокації:</b> " + filtered_unit[0].city + ", " + filtered_unit[0].region + "<br>" +
-                                                "<b>Військова частина</b> " + filtered_unit[0].mil_part
-
-                                        } catch {}
-
-                                        //console.log(text)
-
-                                        var child = document.createElement('div');
-                                        child.innerHTML = text
-                                        child.classList.add("total-description")
-                                        description.appendChild(child);
+                                    } else {}
+                                    //підсвічуємо назв населених пунктів та точки в Україні
+                                    try {
+                                        var myClass = this.classList;
+                                        text_label = document.getElementsByClassName(myClass[0] + " text-explainer")
+                                        text_label[0].style.opacity = "1";
+                                    } catch {}
+                                    try {
+                                        war_point = document.getElementsByClassName(myClass[0] + " war-point")
+                                        war_point[0].style.opacity = "1";
                                     } catch {}
 
-                                    elements = document.getElementsByClassName(d.unit)
-                                        // параметри для всіх елементів, на які наводиться мишка
-                                    for (var i = 0; i < elements.length; i++) {
-                                        if (elements[i].localName == 'circle') {
-                                            elements[i].style.r = "10"
-                                        } else if (elements[i].localName == 'text') {
-                                            elements[i].style.font = "14px proxima-medium";
-                                        } else if (elements[i].localName == 'li') {
-                                            elements[i].style.font = "18px proxima-medium";
-
-                                        } else if (elements[i].localName == 'path') { // Лінії на карті приховані, і підсвічуються лише при наведенні
-                                            if (elements[i].classList.contains('link')) {
-                                                // для ліній на ієрархії
-                                                elements[i].style.strokewidth = "20px";
-                                            } else {
-                                                // для ліній на карті
-                                                elements[i].style.strokewidth = "5px";
-                                                elements[i].style.opacity = "1";
-                                            }
-                                        } else {}
-                                        //підсвічуємо назв населених пунктів та точки в Україні
-                                        try {
-                                            var myClass = this.classList;
-                                            text_label = document.getElementsByClassName(myClass[0] + " text-explainer")
-                                            text_label[0].style.opacity = "1";
-                                        } catch {}
-                                        try {
-                                            war_point = document.getElementsByClassName(myClass[0] + " war-point")
-                                            war_point[0].style.opacity = "1";
-                                        } catch {}
-
-                                        try {
-                                            war_explainer = document.getElementsByClassName(myClass[0] + " war-explainer")
-                                            war_explainer[0].style.opacity = "1";
-                                        } catch {}
-                                    }
-                                };
-                                photo[i].onmouseleave = function() {
-                                    // прибрав автоматичне видалення обраних точок
-                                    /*try {
-                                        description = document.getElementById("box3")
-
-                                        while (description.firstChild) {
-                                            description.removeChild(description.firstChild);
-                                        }
-                                    } catch {} */
-                                    elements = document.getElementsByClassName(d.unit)
-                                    for (var i = 0; i < elements.length; i++) {
-                                        if (elements[i].localName == 'circle') {
-                                            elements[i].style.r = "3"
-                                        } else if (elements[i].localName == 'text') {
-                                            elements[i].style.font = "10px proxima-medium";
-                                        } else if (elements[i].localName == 'li') {
-                                            //console.log(elements[i])
-                                            elements[i].style.font = "14px proxima-medium";
-                                        } else if (elements[i].localName == 'path') {
-                                            if (elements[i].classList.contains('link')) {
-                                                // для ліній на ієрархії
-                                            } else {
-                                                // для ліній на карті 
-                                                elements[i].style.opacity = "0";
-                                            }
-                                        } else {}
-
-                                        // прибираємо підсвітку назв населених пунктів та точки в Україні
-                                        try {
-                                            var myClass = this.classList;
-                                            text_label = document.getElementsByClassName(myClass[0] + " text-explainer")
-                                            text_label[0].style.opacity = "0"
-                                        } catch {}
-
-                                        try {
-                                            war_point = document.getElementsByClassName(myClass[0] + " war-point")
-                                            war_point[0].style.opacity = "0";
-                                        } catch {}
-                                        try {
-                                            war_explainer = document.getElementsByClassName(myClass[0] + " war-explainer")
-                                            war_explainer[0].style.opacity = "0";
-                                        } catch {}
-                                    }
+                                    try {
+                                        war_explainer = document.getElementsByClassName(myClass[0] + " war-explainer")
+                                        war_explainer[0].style.opacity = "1";
+                                    } catch {}
                                 }
-                                photo[i].onclick = function() {}
-                            } catch {
-                                continue
+                            };
+                            photo[i].onmouseleave = function() {
+                                // прибрав автоматичне видалення обраних точок
+                                /*try {
+                                    description = document.getElementById("box3")
+
+                                    while (description.firstChild) {
+                                        description.removeChild(description.firstChild);
+                                    }
+                                } catch {} */
+                                elements = document.getElementsByClassName(d.unit)
+                                for (var i = 0; i < elements.length; i++) {
+                                    if (elements[i].localName == 'circle') {
+                                        elements[i].style.r = "3"
+                                    } else if (elements[i].localName == 'text') {
+                                        elements[i].style.font = "10px proxima-medium";
+                                        if (elements[i].classList.contains("war-explainer-text"))
+                                            elements[i].style.opacity = "0";
+                                        else {}
+                                    } else if (elements[i].localName == 'li') {
+                                        //console.log(elements[i])
+                                        elements[i].style.font = "14px proxima-medium";
+                                    } else if (elements[i].localName == 'rect') {
+                                        elements[i].style.opacity = "0";
+                                    } else if (elements[i].localName == 'path') {
+                                        if (elements[i].classList.contains('link')) {
+                                            // для ліній на ієрархії
+                                        } else {
+                                            // для ліній на карті 
+                                            elements[i].style.opacity = "0";
+                                        }
+                                    } else {}
+
+                                    // прибираємо підсвітку назв населених пунктів та точки в Україні
+                                    try {
+                                        var myClass = this.classList;
+                                        text_label = document.getElementsByClassName(myClass[0] + " text-explainer")
+                                        text_label[0].style.opacity = "0"
+                                    } catch {}
+
+                                    try {
+                                        war_point = document.getElementsByClassName(myClass[0] + " war-point")
+                                        war_point[0].style.opacity = "0";
+                                    } catch {}
+                                    try {
+                                        war_explainer = document.getElementsByClassName(myClass[0] + " war-explainer")
+                                        war_explainer[0].style.opacity = "0";
+                                    } catch {}
+                                }
                             }
+                            photo[i].onclick = function() {}
                         };
                     })
                 })

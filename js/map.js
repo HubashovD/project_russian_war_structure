@@ -40,7 +40,7 @@ function mapPainter() {
 
     d3.csv("map.csv", function(data) {
 
-        d3.json("ukraine.geojson", function(error, json) {
+        d3.json("data/ukraine.geojson", function(error, json) {
             if (error) console.error(error);;
 
             var map_path = d3.geoPath().projection(projection);
@@ -51,38 +51,57 @@ function mapPainter() {
                 .enter()
                 .append("path")
                 .attr("d", map_path)
-                .attr("fill", "red")
-                //.attr("stroke", "black")
+                .attr("fill", "None")
+                .attr("stroke", "black")
                 .style("opacity", 0.5);
         });
 
 
+        /*d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data) {
 
-        function updateRegion(region) {
-            d3.json("data/" + region + ".geojson", function(error, json) {
-                try {
-                    var reg = document.getElementById("region")
-                        //console.log(reg)
-                    reg.remove()
-                } catch {}
+            // Filter data
+            data.features = data.features.filter(function(d) { return d.properties.name == "Ukraine" })
 
-                if (error) console.error(error);;
+            // Draw the map
+            map_svg.append("g")
+                .selectAll("u_path")
+                .data(data.features)
+                .enter()
+                .append("path")
+                .attr("fill", "red")
+                .attr("d", d3.geoPath()
+                    .projection(projection)
+                )
+                .style("stroke", "black")
+        })
+ */
 
-                var map_path = d3.geoPath().projection(projection);
-                //console.log(json)
 
-                map_svg.selectAll("r_path")
-                    .data(json.features)
-                    .enter()
-                    .append("path")
-                    .attr("id", "region")
-                    .attr("d", map_path)
-                    .attr("fill", "None")
-                    .attr("stroke", "black")
-                    .style("opacity", 0.5);
-            });
+        /* function updateRegion(region) {
+             d3.json("data/" + region + ".geojson", function(error, json) {
+                 try {
+                     var reg = document.getElementById("region")
+                         //console.log(reg)
+                     reg.remove()
+                 } catch {}
 
-        }
+                 if (error) console.error(error);;
+
+                 var map_path = d3.geoPath().projection(projection);
+                 //console.log(json)
+
+                 map_svg.selectAll("r_path")
+                     .data(json.features)
+                     .enter()
+                     .append("path")
+                     .attr("id", "region")
+                     .attr("d", map_path)
+                     .attr("fill", "None")
+                     .attr("stroke", "black")
+                     .style("opacity", 0.5);
+             });
+
+         } 
         // When the button is changed, run the updateChart function
         d3.select("#district_selector").on("change.map", function(d) {
             console.log("update MAP")
@@ -92,7 +111,7 @@ function mapPainter() {
                 // run the updateChart function with this selected option
             updateRegion(region)
         })
-        updateRegion("Західний військовий округ")
+        updateRegion("Західний військовий округ")*/
 
         options()
         var link = []
@@ -189,23 +208,35 @@ function mapPainter() {
             // додаємо підписи доля населених пунктів в яких дислокуються військові підрозділи російської армії
             text_explainer = map_svg.selectAll(".labels")
 
+
+            text_explainer
+                .data(points)
+                .enter().append("rect")
+                .attr("class", function(d) { return d.unit_en + " text-rect" })
+                .attr("x", function(d) {
+                    return projection(d.coordinates[1])[0] - 5
+                })
+                .attr("y", function(d) { return projection(d.coordinates[1])[1] - 15 })
+                .attr("height", "20px")
+                .attr("width", function(d) { return d.city.length * 10 })
+                .style("opacity", 0)
+                .style("fill", "black")
+
+
             text_explainer
                 .data(points)
                 .enter().append("text")
-                //.attr("class", "text_explainer")
                 .attr("class", function(d) { return d.unit_en + " text-explainer" })
                 .text(function(d) { return d.city })
                 .attr("x", function(d) {
                     return projection(d.coordinates[1])[0]
                 })
                 .attr("y", function(d) { return projection(d.coordinates[1])[1] })
-                .style("background-color", "white")
                 .style("border", "solid")
                 .style("border-width", "1px")
                 .style("border-radius", "5px")
+                .style("fill", "white")
                 .style("opacity", 0)
-
-
 
             // додамо точки у яких вооють російські підрозділи в Україні
             map_svg.selectAll(".war_points")
@@ -217,33 +248,38 @@ function mapPainter() {
                 .attr("cy", function(d) { return projection(d.coordinates[0])[1] })
                 .attr("r", 3)
                 .style("fill", "grey")
-                //.attr("stroke", "black")
-                //.attr("stroke-width", 3)
                 .attr("opacity", 0)
-                //.on("mouseover", mouseover)
-                //.on("mousemove", mousemove)
-                //.on("mouseleave", mouseleave)
-
-
 
             // Додаємо підписи територій в яких вооють російські підрозділи в Україні
-            text_war_explainer = map_svg.selectAll(".war_explainer")
+            text_war_explainer = map_svg.selectAll(".labels")
+
+            text_war_explainer
+                .data(link)
+                .enter().append("rect")
+                .attr("class", function(d) { return d.unit_en + " war-explainer-rect" })
+                .attr("x", function(d) {
+                    return projection(d.coordinates[0])[0] - 5
+                })
+                .attr("y", function(d) { return projection(d.coordinates[0])[1] - 15 })
+                .attr("height", "20px")
+                .attr("width", function(d) { return d.location.length * 10 })
+                .style("opacity", 0)
+                .style("fill", "red")
 
             text_war_explainer
                 .data(link)
                 .enter().append("text")
-                //.attr("class", "text_explainer")
-                .attr("class", function(d) { return d.unit_en + " war-explainer" })
+                .attr("class", function(d) { return d.unit_en + " war-explainer-text" })
                 .text(function(d) { return d.location })
                 .attr("x", function(d) {
                     return projection(d.coordinates[0])[0]
                 })
                 .attr("y", function(d) { return projection(d.coordinates[0])[1] })
-                .style("background-color", "white")
                 .style("border", "solid")
                 .style("border-width", "1px")
                 .style("border-radius", "5px")
                 .style("opacity", 0)
+                .style("fill", "white")
 
 
         })

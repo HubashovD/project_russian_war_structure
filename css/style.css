@@ -30,6 +30,11 @@
     src: url("../fonts/PROXIMA-NOVA-A-MEDIUM.otf") format("opentype")
 }
 
+@font-face {
+    font-family: "proxima-bold";
+    src: url("../fonts/PROXIMA-NOVA-A-BOLD.otf") format("opentype")
+}
+
 @media (min-width: 992px) and (max-width: 1279px) {
     .main_grid {
         display: block !important;
@@ -247,6 +252,19 @@ label {
 }
 
 .total-description {
-    font: 16px "proxima-medium";
-    align-self: center;
+    margin-top: 3vh;
+}
+
+.total-description-header {
+    letter-spacing: 0.7pt;
+    font: 14px "proxima-bold";
+    margin-bottom: 0 !important;
+    margin-top: 1vh !important;
+}
+
+.total-description-text {
+    font: 14px "proxima-bold";
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    color: black;
 }
