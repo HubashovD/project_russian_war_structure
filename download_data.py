@@ -56,6 +56,8 @@ final = final.sort_values('id')
 final = final[~final['id'].isna()]
 
 final["id"] = final["id"].str.replace(r"\.ffff", "")
+final["id"] = final["id"].str.replace(r"\.Армійського підпорядкування", "")
+final["id"] = final["id"].str.replace(r"\.Окружного підпорядкування", "")
 final = final.drop_duplicates('id')
 
 final.to_csv('data/data.csv', index = False)
