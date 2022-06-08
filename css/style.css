@@ -221,16 +221,19 @@
 
 .node--internal circle {
     fill: #555;
+    pointer-events: none;
 }
 
 .node--internal text {
     text-shadow: 0 1px 0 #fff, 0 -1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
+    pointer-events: none;
 }
 
 .node--internal text:hover {
     font: 14px "proxima-medium";
     font-family: "proxima-medium";
     color: red;
+    pointer-events: none;
 }
 
 .link {

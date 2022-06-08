@@ -1,5 +1,6 @@
 function mapPainter() {
-    // The svg
+    console.log('Paint map')
+        // The svg
 
     /*var svg = d3.select("#map"),
         width = +svg.attr("width"),
@@ -9,15 +10,17 @@ function mapPainter() {
         map_width = d3.select("#map").node().getBoundingClientRect().width, //- margin.left - margin.right,
         map_height = d3.select("#map").node().getBoundingClientRect().height - map_margin.top - map_margin.bottom;
     //height = 920 - margin.top - margin.bottom;
-    console.log(d3.select("#map").node().getBoundingClientRect().height)
-    console.log(map_width)
-        //console.log(map_height)
+    //console.log(d3.select("#map").node().getBoundingClientRect().height)
+    //console.log(map_width)
+    //console.log(map_height)
 
     // append the svg object to the body of the page
     var map_svg = d3.select("#map")
         .append("svg")
         .attr("width", map_width) // + map_margin.left + map_margin.right
         .attr("height", map_height + map_margin.top + map_margin.bottom) // + map_margin.top + map_margin.bottom
+
+
 
     map_svg.append('rect')
         .attr("fill", "#d0cfd4")
@@ -38,9 +41,9 @@ function mapPainter() {
 
 
 
-    d3.csv("map.csv", function(data) {
+    d3.csv("/data/map.csv", function(data) {
 
-        d3.json("data/ukraine.geojson", function(error, json) {
+        /*d3.json("data/ukraine.geojson", function(error, json) {
             if (error) console.error(error);;
 
             var map_path = d3.geoPath().projection(projection);
@@ -54,15 +57,14 @@ function mapPainter() {
                 .attr("fill", "None")
                 .attr("stroke", "black")
                 .style("opacity", 0.5);
-        });
-
+        }); */
 
         /*d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data) {
 
             // Filter data
             data.features = data.features.filter(function(d) { return d.properties.name == "Ukraine" })
-
-            // Draw the map
+            console.log(data.features)
+                // Draw the map
             map_svg.append("g")
                 .selectAll("u_path")
                 .data(data.features)
@@ -73,8 +75,10 @@ function mapPainter() {
                     .projection(projection)
                 )
                 .style("stroke", "black")
-        })
- */
+                .style("z-index", "999")
+        }) */
+
+
 
 
         /* function updateRegion(region) {
@@ -160,6 +164,24 @@ function mapPainter() {
 
         // Load world shape
         d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data) {
+
+            d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data) {
+
+                // Filter data
+                data.features = data.features.filter(function(d) { return d.properties.name == "Ukraine" })
+                    //console.log(data.features)
+                    // Draw the map  
+                map_svg.selectAll("u_path")
+                    .data(data.features)
+                    .enter()
+                    .append("path")
+                    .attr("d", d3.geoPath()
+                        .projection(projection)
+                    )
+                    .style("stroke", "black")
+                    .style("fill", "None")
+
+            })
 
             // Draw the map
             map_svg.append("g")
@@ -283,10 +305,8 @@ function mapPainter() {
 
 
         })
-
-
-        options()
     })
+
 
 }
 mapPainter()

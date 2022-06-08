@@ -53,15 +53,10 @@
                 </div>
             </div>
         </div>
-        <script src="js/ierarchy.js"></script>
-        <!-- <script src="js/list.js"></script> -->
-        <script src="js/map.js"></script>
-        <!-- <script scr="js/map_ rev2.js"></script> -->
-        <script>
-        </script>
         <script>
             function options() {
-                // Підсвічуємо точки, лінії та текст підрозділів, які беруть участь у повномасштабному вторгенні
+                console.log('options')
+                    // Підсвічуємо точки, лінії та текст підрозділів, які беруть участь у повномасштабному вторгенні
                 criminals = document.getElementsByClassName("Yes")
                     //console.log(criminals)
 
@@ -79,7 +74,7 @@
 
                 }
 
-                d3.csv("map.csv", function(data) {
+                d3.csv("/data/map.csv", function(data) {
                     //console.log(data)
                     var unit_list = []
                     data.forEach(function(d) {
@@ -202,6 +197,7 @@
                                         if (elements[i].classList.contains('link')) {
                                             // для ліній на ієрархії
                                             elements[i].style.strokewidth = "20px";
+                                            //console.log('Link')
                                         } else {
                                             // для ліній на карті
                                             elements[i].style.strokewidth = "5px";
@@ -279,9 +275,51 @@
                     })
                 })
             }
-        </script>>
+        </script>
         <script>
             options()
+        </script>
+        <script src="js/ierarchy.js"></script>
+        <!-- <script src="js/list.js"></script> -->
+        <script src="js/map.js"></script>
+        <!-- <script scr="js/map_ rev2.js"></script> -->
+        <script>
+            mapPainter()
+        </script>
+        <script>
+            function colored_links() {
+                console.log("colored_links")
+                d3.csv("/data/map.csv", function(data) {
+                    //console.log(data)
+                    var link = []
+                    data.forEach(function(d) {
+                        if (d.crimes == "Yes") { // перелік підрозділів, які вчиняли зловчини
+                            //console.log(d.unit_en)
+                            link.push({
+                                unit_en: d.unit_en
+                            })
+                        } else {}
+                    })
+                    console.log(link)
+
+                    link.forEach(function(d) { // перебираємо підрозіділи, які є злочинцями
+                        //console.log(d)
+                        var selected = Array.from(document.getElementsByClassName(d.unit_en))
+                        selected.forEach(function(d) {
+                            d.classList.forEach(function(c) {
+                                if (c == 'link') {
+                                    d.style.stroke = 'red'
+                                } else if (c == 'circle') {
+                                    d.style.fill = 'red'
+                                }
+                            })
+                        })
+                    })
+                })
+            }
+        </script>
+        <script>
+            colored_links()
         </script>
     </body>
 

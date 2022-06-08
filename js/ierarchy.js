@@ -14,7 +14,7 @@ function ierarchyPainter() {
     //console.log(svg)
 
 
-    d3.csv("data.csv", function(error, data, ) {
+    d3.csv("/data/data.csv", function(error, data, ) {
         if (error) throw error;
 
         function update(f) {
@@ -89,7 +89,8 @@ function ierarchyPainter() {
 
 
             node.append("circle")
-                .attr("r", 2.5);
+                .attr("r", 2.5)
+                .classed('circle', true);
 
             node.append("text")
                 .attr("dy", 3)
@@ -173,6 +174,9 @@ function ierarchyPainter() {
                 circles
                     .attr("class", leafs[z].__data__.data.unit_en + " " + leafs[z].__data__.data.crimes);
 
+                //link
+                //    .classed(leafs[z].__data__.data.crimes, "True");
+
                 texts = elem.selectAll("text")
 
                 texts
@@ -220,7 +224,7 @@ function ierarchyPainter() {
                 var classesList = []
                 try {
                     for (var y = 0; y < links[x].__data__.children.length; y++) {
-                        //console.log(links[x].__data__.children[y].data.unit_en)
+                        //console.log(links[x].__data__.children[y].data)
                         classesList.push(links[x].__data__.children[y].data.unit_en)
                         try {
                             for (var z = 0; z < links[x].__data__.children[y].children.length; z++) {
@@ -256,6 +260,7 @@ function ierarchyPainter() {
                 //console.log(selectedOption)
                 // run the updateChart function with this selected option
             update(selectedOption)
+            colored_links()
         })
         update("Західний військовий округ")
 
