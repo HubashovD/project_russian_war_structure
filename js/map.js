@@ -32,9 +32,9 @@ function mapPainter() {
 
     // Map and projection
     var projection = d3.geoMercator()
-        .scale(359) //400 350 360
+        .scale(340) //400 350 360
         .rotate([-90, 0])
-        .center([5, 65]) //[0, 70] [5, 70]
+        .center([5, 60]) //[0, 70] [5, 70]
         /*.translate([width / 2, height / 2 * 1.3]) */
 
 

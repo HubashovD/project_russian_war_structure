@@ -47,6 +47,10 @@
     #map {
         width: 99vw;
     }
+    #main-header {
+        font: 30px "CHARTERC-bold";
+        text-align: center;
+    }
 }
 
 @media (max-width: 991px) and (min-width: 480px) {
@@ -55,6 +59,10 @@
     }
     #map {
         width: 99vw;
+    }
+    #main-header {
+        font: 30px "CHARTERC-bold";
+        text-align: center;
     }
 }
 
@@ -65,6 +73,22 @@
     }
     #map {
         width: 99vw !important;
+    }
+    #main-header {
+        font: 30px "CHARTERC-bold" !important;
+    }
+    #lead {
+        font: 18px "proxima-semi" !important;
+        margin-left: 12.5vw !important;
+        margin-right: 12.5vw !important;
+    }
+    .usual_text_block {
+        display: block;
+        height: fit-content;
+        margin-left: 25vw;
+        margin-right: 25vw;
+        font: 24px "proxima-medium";
+        color: #555;
     }
 }
 
@@ -103,12 +127,18 @@
 
 #selectors {
     margin-top: 3vh;
+    width: 20vw;
 }
 
 #district_selector {
-    width: 10vw;
+    width: 20vw;
     margin-left: 10vw;
     height: 3vh;
+    font: 12px "proxima-medium";
+}
+
+#district_selector option {
+    font: 12px "proxima-medium";
 }
 
 #svitcher {
