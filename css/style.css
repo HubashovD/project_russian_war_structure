@@ -289,3 +289,23 @@ label {
     margin-top: 0 !important;
     color: black;
 }
+
+path {
+    pointer-events: none;
+}
+
+.war-explainer-text {
+    pointer-events: none;
+}
+
+.war-explainer-rect {
+    pointer-events: none;
+}
+
+.text-rect {
+    pointer-events: none;
+}
+
+.text-explainer {
+    pointer-events: none;
+}
