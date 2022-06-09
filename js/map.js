@@ -302,7 +302,7 @@ function mapPainter() {
                 .style("border-radius", "5px")
                 .style("opacity", 0)
                 .style("fill", "white")
-
+            options()
 
         })
     })

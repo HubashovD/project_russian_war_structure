@@ -74,6 +74,12 @@
 
 .usual_text_block {
     height: 100px;
+    display: block;
+    height: fit-content;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    font: 14px "proxima-medium";
+    color: #555;
 }
 
 #selectors {
