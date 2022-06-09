@@ -18,8 +18,21 @@
 
     <body>
         <article>
-            <div id='main-header'>Наскільки велика російська армія?</div>
-            <div id='lead'>Скільки бойових підрозділів Російська Федерація вже задіяла у війні з Україною? Чи є десь у "степах забайкалля" ще одна російська армія із потужною технікою, яку показують на парадах до "Дна перемоги"?</div>
+
+
+            <div id='main-header'>
+                <p>Наскільки велика російська армія?</p>
+
+                <div id='lead'>
+                    <p>Скільки бойових підрозділів Російська Федерація вже задіяла у війні з Україною? Чи є десь у "степах забайкалля" ще одна російська армія із потужною технікою, яку показують на парадах до "Дня перемоги"?</p>
+                </div>
+            </div>
+            <div id="pic-background">
+                <img src="pic/cover.png" width="100%">
+            </div>
+            <div id='lead_mobile'>
+                <p>Скільки бойових підрозділів Російська Федерація вже задіяла у війні з Україною? Чи є десь у "степах забайкалля" ще одна російська армія із потужною технікою, яку показують на парадах до "Дня перемоги"?</p>
+            </div>
             <!--Путін Хуйло-->
             <div class='usual_text_block'>
                 <p>На початку квітня ми разом із військовими поїхали в Бородянку, для того щоб на власні очі побачити жахіття, які по собі залишили росіяни. І на питання шведського журналіста один із військових відповів, що російська армія, не така потужна
@@ -132,11 +145,8 @@
             <div class="semi-header">
                 Наскільки велика російська армія?
             </div>
-            <div class='usual_text_block'>
-                <span style="color: red">Кольором </span> позначено бойові підрозділи, задіяні у війні РФ з Україною.
-            </div>
-            <div id='selectors'>
-                <select id="district_selector">
+            <div id='selectors-mobile'>
+                <select id="district-selector-mobile">
             <option value="Західний військовий округ">Західний військовий округ</option>
             <option value="Північний флот">Північний флот</option>
             <option value="Східний військовий округ">Східний військовий округ</option>
@@ -145,7 +155,9 @@
         </select>
             </div>
 
-
+            <div id='mobile-explainer'>
+                Ви переглядаєте мобільну версію візуалізації, для того щоб переглянути повну візуалізацію скористуйтесь комп'ютером або пристроєм із шириною екрану більше ніж 1279 пікселів.
+            </div>
 
             <div id='main_div'>
                 <div class="main_grid" id="main_grid">
@@ -156,8 +168,18 @@
                         <div uk-sticky="map_sticky" id="sticky">
                             <div>
                                 <p id='map-explainer'>
-                                    Оберіть військовий округ із списку та наведіть назву на підрозділ щоб отримати додаткову інформацію
+                                    Оберіть військовий округ із списку та наведіть назву на підрозділ щоб отримати додаткову інформацію <br>
+                                    <span style="color: red">Кольором </span> позначено бойові підрозділи, задіяні у війні РФ з Україною.
                                 </p>
+                            </div>
+                            <div id='selectors'>
+                                <select id="district_selector">
+                            <option value="Західний військовий округ">Західний військовий округ</option>
+                            <option value="Північний флот">Північний флот</option>
+                            <option value="Східний військовий округ">Східний військовий округ</option>
+                            <option value="Центральний військовий округ">Центральний військовий округ</option>
+                            <option value="Південний військовий округ">Південний військовий округ</option>
+                        </select>
                             </div>
                             <div id='map'></div>
                             <div id="box3"> Наведіть на точку на карті для отримання детальної інформації</div>
@@ -165,11 +187,39 @@
                     </div>
                 </div>
             </div>
+
+            <!-- для мобільної версії!!!!! -->
+
+            <div id='mobile_ierarchy'>
+                <img id="image_1" src="pic/Західний військовий округ.jpg">
+            </div>
+            <div id='mobile_map'>
+                <img id="image_map" src="pic/map.jpg">
+            </div>
         </article>
         <script src="js/ierarchy.js"></script>
         <!-- <script src="js/list.js"></script> -->
         <script src="js/map.js"></script>
         <!-- <script scr="js/map_ rev2.js"></script> -->
+
+        <script>
+            function up_image(option) {
+                console.log(option)
+                var fullCoverImage = document.getElementById("image_1")
+                fullCoverImage.setAttribute("src", "pic/" + option + ".jpg");
+                console.log(option)
+            }
+
+            // When the button is changed, run the updateChart function
+            d3.select("#district-selector-mobile").on("change.image", function(d) {
+                console.log("update IMAGE")
+                    // recover the option that has been chosen
+                var selectedOption = d3.select(this).property("value")
+                    //console.log(selectedOption)
+                    // run the updateChart function with this selected option
+                up_image(selectedOption)
+            })
+        </script>
         <script>
             function options() {
                 console.log('options')
