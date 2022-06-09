@@ -35,6 +35,11 @@
     src: url("../fonts/PROXIMA-NOVA-A-BOLD.otf") format("opentype")
 }
 
+@font-face {
+    font-family: "proxima-semi";
+    src: url("../fonts/PROXIMA-NOVA-A-SEMIBOLD.otf") format("opentype")
+}
+
 @media (min-width: 992px) and (max-width: 1279px) {
     .main_grid {
         display: block !important;
@@ -69,16 +74,23 @@
 }
 
 #lead {
-    font: 16px "CHARTER";
+    font: 24px "proxima-semi";
+    color: black;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    height: fit-content;
+    margin-bottom: 5vh;
+    margin-top: 5vh;
 }
 
+.semi-header {}
+
 .usual_text_block {
-    height: 100px;
     display: block;
     height: fit-content;
     margin-left: 25vw;
     margin-right: 25vw;
-    font: 14px "proxima-medium";
+    font: 24px "proxima-medium";
     color: #555;
 }
 
