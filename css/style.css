@@ -17,27 +17,27 @@
 
 @font-face {
     font-family: "CHARTERC";
-    src: url("../fonts/CHARTERC.otf") format("opentype")
+    src: url("../fonts/CHARTERC.OTF") format("opentype")
 }
 
 @font-face {
     font-family: "CHARTERC-bold";
-    src: url("../fonts/CHARTERC-BOLD.otf") format("opentype")
+    src: url("../fonts/CHARTERC-BOLD.OTF") format("opentype")
 }
 
 @font-face {
     font-family: "proxima-medium";
-    src: url("../fonts/PROXIMA-NOVA-A-MEDIUM.otf") format("opentype")
+    src: url("../fonts/PROXIMA-NOVA-A-MEDIUM.OTF") format("opentype")
 }
 
 @font-face {
     font-family: "proxima-bold";
-    src: url("../fonts/PROXIMA-NOVA-A-BOLD.otf") format("opentype")
+    src: url("../fonts/PROXIMA-NOVA-A-BOLD.OTF") format("opentype")
 }
 
 @font-face {
     font-family: "proxima-semi";
-    src: url("../fonts/PROXIMA-NOVA-A-SEMIBOLD.otf") format("opentype")
+    src: url("../fonts/PROXIMA-NOVA-A-SEMIBOLD.OTF") format("opentype")
 }
 
 @media (min-width: 992px) and (max-width: 1279px) {
