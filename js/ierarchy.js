@@ -14,7 +14,7 @@ function ierarchyPainter() {
     //console.log(svg)
 
 
-    d3.csv("/data/data.csv", function(error, data, ) {
+    d3.csv("data/data.csv", function(error, data, ) {
         if (error) throw error;
 
         function update(f) {
