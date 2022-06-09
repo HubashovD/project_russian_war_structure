@@ -83,7 +83,14 @@
     margin-top: 5vh;
 }
 
-.semi-header {}
+.semi-header {
+    color: #000;
+    font: 24px "proxima-semi";
+    margin-left: 25vw;
+    margin-right: 25vw;
+    margin-bottom: 3vh;
+    margin-top: 5vh;
+}
 
 .usual_text_block {
     display: block;

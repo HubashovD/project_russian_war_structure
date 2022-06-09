@@ -41,7 +41,7 @@ function mapPainter() {
 
 
 
-    d3.csv("/data/map.csv", function(data) {
+    d3.csv("data/map.csv", function(data) {
 
         /*d3.json("data/ukraine.geojson", function(error, json) {
             if (error) console.error(error);;
