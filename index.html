@@ -10,30 +10,43 @@
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
     <!-- UIkit CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.3/dist/css/uikit.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />
 
     <!-- UIkit JS -->
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.3/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.3/dist/js/uikit-icons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/js/uikit-icons.min.js"></script>
 
     <body>
+        <div class="header-wrapper">
+            <a href="https://texty.org.ua/"><img src="pic/white_logo.svg" id="main-logo"></a>
+
+
+            <div id="socio-icons">
+                <!--fb-->
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://texty.org.ua/d/2022/war_video/" target="_blank" class="share-btn">
+                    <div class="icon-wrapper">
+                        <img id="fb" src="pic/facebook.png">
+                    </div>
+                </a>
+
+                <!--tw -->
+                <a href="https://twitter.com/intent/tweet?text=https://texty.org.ua/d/2022/war_video/" target="_blank" class="share-btn">
+                    <div class="icon-wrapper">
+                        <img id="tw" src="pic/twitter.png">
+                    </div>
+                </a>
+
+            </div>
+        </div>
+        <div id="main-header">
+            <div class='title-wrapper'>
+                <h1 class='title'> Орда. Структура російської армії та підрозділи, залучені в Україні </h1>
+                <h3> Чи є десь у "степах Забайкалля" ще одна російська армія з потужною технікою, як її показують на парадах до "Дня перемоги"? </h3>
+
+            </div>
+        </div>
+        <!--Путін Хуйло-->
         <article>
-
-
-            <div id='main-header'>
-                <p>Орда. Структура російської армії та підрозділи, залучені в Україні</p>
-
-                <div id='lead'>
-                    <p>Чи є десь у "степах Забайкалля" ще одна російська армія з потужною технікою, як її показують на парадах до "Дня перемоги"?</p>
-                </div>
-            </div>
-            <div id="pic-background">
-                <img src="pic/cover.png" width="100%">
-            </div>
-            <div id='lead_mobile'>
-                <p>Скільки бойових підрозділів Російська Федерація вже задіяла у війні з Україною? Чи є десь у "степах забайкалля" ще одна російська армія із потужною технікою, яку показують на парадах до "Дня перемоги"?</p>
-            </div>
-            <!--Путін Хуйло-->
             <div class='usual_text_block'>
                 <p>На початку квітня ми разом із військовими поїхали в Бородянку, для того щоб на власні очі побачити жахіття, які по собі залишили росіяни. І на питання шведського журналіста один із військових відповів, що російська армія, не така потужна
                     наскільки велика і її перемелювання займає багато часу.</p>
@@ -57,6 +70,58 @@
 
                 <p>Бригадна структура більше відповідаю веденню новітніх війн, військові експерти називають їх війнами 4 покоління - високоінтенсивні, із великими марш кидками, використанням сучасної техніки, озброєння, новітніх технологій, а головне - вузько
                     направлених спеціалістів та взаємодії різних родів військ.</p>
+            </div>
+
+            <div class="semi-header">
+                Наскільки велика російська армія?
+            </div>
+            <div id='selectors-mobile'>
+                <select id="district-selector-mobile">
+            <option value="Західний військовий округ">Західний військовий округ</option>
+            <option value="Північний флот">Північний флот</option>
+            <option value="Східний військовий округ">Східний військовий округ</option>
+            <option value="Центральний військовий округ">Центральний військовий округ</option>
+            <option value="Південний військовий округ">Південний військовий округ</option>
+        </select>
+            </div>
+
+            <div id='mobile-explainer'>
+                Ви переглядаєте мобільну версію візуалізації, для того щоб переглянути повну візуалізацію скористуйтесь комп'ютером або пристроєм із шириною екрану більше ніж 1279 пікселів.
+            </div>
+
+            <div id='main_div'>
+                <div class="main_grid" id="main_grid">
+                    <div class="box1" id="box1">
+                        <div id="ierarchy"></div>
+                    </div>
+                    <div class="box2" id="box2">
+                        <div data-uk-sticky="map_sticky" uk-sticky="end: 1150px" id="sticky">
+                            <div>
+                                <p id='map-explainer'>
+                                    Оберіть військовий округ із списку та наведіть назву на підрозділ щоб отримати додаткову інформацію <br>
+                                    <span style="color: red">Кольором </span> позначено бойові підрозділи, задіяні у війні РФ з Україною.
+                                </p>
+                            </div>
+                            <div id='selectors'>
+                                <select id="district_selector">
+                                <option value="Західний військовий округ">Західний військовий округ</option>
+                                <option value="Північний флот">Північний флот</option>
+                                <option value="Східний військовий округ">Східний військовий округ</option>
+                                <option value="Центральний військовий округ">Центральний військовий округ</option>
+                                <option value="Південний військовий округ">Південний військовий округ</option>
+                                </select>
+                            </div>
+                            <div id='map'></div>
+                            <div id="box3"> Наведіть на точку на карті для отримання детальної інформації</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id='mobile_ierarchy'>
+                <img id="image_1" src="pic/Західний військовий округ.jpg">
+            </div>
+            <div id='mobile_map'>
+                <img id="image_map" src="pic/map.jpg">
             </div>
             <div class="semi-header">
                 Окремі елементи структури
@@ -142,61 +207,30 @@
                     не увійшли до нашої графіки. </p>
             </div>
 
-            <div class="semi-header">
-                Наскільки велика російська армія?
-            </div>
-            <div id='selectors-mobile'>
-                <select id="district-selector-mobile">
-            <option value="Західний військовий округ">Західний військовий округ</option>
-            <option value="Північний флот">Північний флот</option>
-            <option value="Східний військовий округ">Східний військовий округ</option>
-            <option value="Центральний військовий округ">Центральний військовий округ</option>
-            <option value="Південний військовий округ">Південний військовий округ</option>
-        </select>
-            </div>
-
-            <div id='mobile-explainer'>
-                Ви переглядаєте мобільну версію візуалізації, для того щоб переглянути повну візуалізацію скористуйтесь комп'ютером або пристроєм із шириною екрану більше ніж 1279 пікселів.
-            </div>
-
-            <div id='main_div'>
-                <div class="main_grid" id="main_grid">
-                    <div class="box1" id="box1">
-                        <div id="ierarchy"></div>
-                    </div>
-                    <div class="box2" id="box2">
-                        <div uk-sticky="map_sticky" id="sticky">
-                            <div>
-                                <p id='map-explainer'>
-                                    Оберіть військовий округ із списку та наведіть назву на підрозділ щоб отримати додаткову інформацію <br>
-                                    <span style="color: red">Кольором </span> позначено бойові підрозділи, задіяні у війні РФ з Україною.
-                                </p>
-                            </div>
-                            <div id='selectors'>
-                                <select id="district_selector">
-                            <option value="Західний військовий округ">Західний військовий округ</option>
-                            <option value="Північний флот">Північний флот</option>
-                            <option value="Східний військовий округ">Східний військовий округ</option>
-                            <option value="Центральний військовий округ">Центральний військовий округ</option>
-                            <option value="Південний військовий округ">Південний військовий округ</option>
-                        </select>
-                            </div>
-                            <div id='map'></div>
-                            <div id="box3"> Наведіть на точку на карті для отримання детальної інформації</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- для мобільної версії!!!!! -->
 
-            <div id='mobile_ierarchy'>
-                <img id="image_1" src="pic/Західний військовий округ.jpg">
-            </div>
-            <div id='mobile_map'>
-                <img id="image_map" src="pic/map.jpg">
-            </div>
+
         </article>
+        <div class="donate-us">
+            <a class="donate-button" href="https://www.liqpay.ua/api/3/checkout?data=eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXlkb25hdGUiLCJwdWJsaWNfa2V5IjoiaTc2NjUwNTYyODI3IiwiYW1vdW50IjoiMTUwIiwiY3VycmVuY3kiOiJVQUgiLCJkZXNjcmlwdGlvbiI6ItCf0L7QttC10YDRgtCy0LAiLCJ0eXBlIjoiZG9uYXRlIiwibGFuZ3VhZ2UiOiJ1ayJ9&amp;signature=tTFrEUyI4WV5l3N7G%2BYg5keUaXU%3D"
+                target="_blank">
+                <p class="donate-p">Пожертвувати</p>
+            </a>
+            <p>TEXTY.ORG.UA — незалежне видання без навʼязливої реклами й замовних матеріалів. Щоб працювати далі, нам потрібна ваша підтримка.
+                <a href="https://texty.org.ua/support/#subscription">Також ви можете зробити пожертву
+                    щомісячною.</a>
+            </p>
+        </div>
+        <section id="created_texty">
+            <div>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://texty.org.ua/d/2020/trade-map/" class="share-btn"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/intent/tweet?text=http://texty.org.ua/d/2020/trade-map/" class="share-btn"><i class="fab fa-twitter"></i></a>
+                <h3>Створено Текстами</h3>
+            </div>
+            <div>
+                <a href="http://texty.org.ua/" target="_blank"><img src="pic/logo.svg" alt="texty.org.ua" id='end-logo'></a>
+            </div>
+        </section>
         <script>
             window.__base_dir__ = "";
         </script>
