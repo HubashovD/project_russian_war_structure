@@ -246,6 +246,18 @@ h1.title {
     font-size: calc(18px + 0.7vw);
 }
 
+#autors {
+    margin-left: 3vw;
+}
+
+a:link {
+    color: red;
+}
+
+.red-d {
+    color: red;
+}
+
 .semi-header {
     color: #000;
     font: 28px "proxima-bold";
@@ -317,7 +329,7 @@ h1.title {
     width: 49vw;
 }
 
-#map-explainer {
+.map-explainer {
     font: 14px "proxima-bold";
 }
 
@@ -541,7 +553,7 @@ path {
     line-height: 1.6;
 }
 
-.fab fa-facebook-f {
+.fa-facebook {
     letter-spacing: 1px;
     text-align: center;
     -webkit-font-smoothing: antialiased;
@@ -562,9 +574,10 @@ path {
     font-size: 2.0em;
     line-height: 1;
     transition: all 0.5s;
+    stroke: white;
 }
 
-.fab fa-twitter {
+.fa-twitter {
     letter-spacing: 1px;
     text-align: center;
     -webkit-font-smoothing: antialiased;
@@ -589,4 +602,35 @@ path {
 
 #end-logo {
     width: 30vw;
+}
+
+.donate-us {
+    font-family: sans-serif;
+    margin: 80px auto 30px auto;
+    max-width: 800px;
+}
+
+.donate-button {
+    font-family: sans-serif;
+    border-bottom: 0;
+    text-decoration: none;
+    cursor: pointer;
+    width: max-content;
+    margin: auto;
+    min-height: 50px;
+    padding: 10px;
+    color: white;
+    background-color: #ed6746;
+    display: flex;
+}
+
+.donate-p {
+    font-family: sans-serif;
+    cursor: pointer;
+    color: white;
+    width: 100%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: auto !important;
+    font-weight: 600;
 }
