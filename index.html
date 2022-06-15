@@ -8,6 +8,7 @@
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://kit.fontawesome.com/043a4ca43b.js" crossorigin="anonymous"></script>
 
     <!-- UIkit CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.14.3/dist/css/uikit.min.css" />
@@ -47,6 +48,10 @@
         </div>
         <!--Путін Хуйло-->
         <article>
+            <div id='autors'>
+                Автор: <a href="https://texty.org.ua/author/denys-hubashov/" target="_blank" class="red-d">Денис Губашов</a>
+                <br>Дизайн: <a href="https://texty.org.ua/author/nadja-kelm/" target="_blank" class="red-d">Надя Кельм</a>
+            </div>
             <div class='usual_text_block'>
                 <p>На початку квітня ми разом із військовими поїхали в Бородянку, для того щоб на власні очі побачити жахіття, які по собі залишили росіяни. І на питання шведського журналіста один із військових відповів, що російська армія, не така потужна
                     наскільки велика і її перемелювання займає багато часу.</p>
@@ -95,9 +100,9 @@
                         <div id="ierarchy"></div>
                     </div>
                     <div class="box2" id="box2">
-                        <div data-uk-sticky="map_sticky" uk-sticky="end: 1150px" id="sticky">
+                        <div data-uk-sticky="map_sticky" uk-sticky="end: 1100px" id="sticky">
                             <div>
-                                <p id='map-explainer'>
+                                <p class='map-explainer' style="margin-bottom: 0.5vh;">
                                     Оберіть військовий округ із списку та наведіть назву на підрозділ щоб отримати додаткову інформацію <br>
                                     <span style="color: red">Кольором </span> позначено бойові підрозділи, задіяні у війні РФ з Україною.
                                 </p>
@@ -111,6 +116,7 @@
                                 <option value="Південний військовий округ">Південний військовий округ</option>
                                 </select>
                             </div>
+                            <div class='map-explainer'>На карті місця дислокації усіх військових частин. На графіках ліворуч видно структуру обраного військового округу.</div>
                             <div id='map'></div>
                             <div id="box3"> Наведіть на точку на карті для отримання детальної інформації</div>
                         </div>
@@ -122,6 +128,11 @@
             </div>
             <div id='mobile_map'>
                 <img id="image_map" src="pic/map.jpg">
+            </div>
+            <div>
+                <p class='map-explainer usual_text_block' style="margin-top: 3vw;">
+                    На візуалізації ми зазначили підрозділи, щодо яких є точні згадки у ЗМІ, серед військових експертів або зведеннях Генерального штабу України, але це можуть бути не всі.
+                </p>
             </div>
             <div class="semi-header">
                 Окремі елементи структури
@@ -223,8 +234,8 @@
         </div>
         <section id="created_texty">
             <div>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=http://texty.org.ua/d/2020/trade-map/" class="share-btn"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://twitter.com/intent/tweet?text=http://texty.org.ua/d/2020/trade-map/" class="share-btn"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=http://texty.org.ua/d/2020/trade-map/" class="share-btn"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://twitter.com/intent/tweet?text=http://texty.org.ua/d/2020/trade-map/" class="share-btn"><i class="fa-brands fa-twitter"></i></a>
                 <h3>Створено Текстами</h3>
             </div>
             <div>
